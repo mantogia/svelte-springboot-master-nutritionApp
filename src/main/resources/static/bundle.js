@@ -743,7 +743,7 @@ var app = (function () {
 			c: function create() {
 				h1 = element("h1");
 				h1.textContent = "Wrong way, go back.";
-				add_location(h1, file$2, 0, 0, 0);
+				add_location(h1, file$2, 12, 0, 184);
 			},
 
 			l: function claim(nodes) {
@@ -766,10 +766,22 @@ var app = (function () {
 		};
 	}
 
+	function instance$1($$self) {
+		axios.get('/patients')
+	    .then((response) => {
+	        console.log(response.data);
+	    })
+	    .catch((error) => {
+	        console.log(error);
+	    });
+
+		return {};
+	}
+
 	class Notfound extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, null, create_fragment$2, safe_not_equal, []);
+			init(this, options, instance$1, create_fragment$2, safe_not_equal, []);
 		}
 	}
 
@@ -858,7 +870,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$1($$self, $$props, $$invalidate) {
+	function instance$2($$self, $$props, $$invalidate) {
 		
 
 	  let value = Notfound;
@@ -879,7 +891,7 @@ var app = (function () {
 	class Router extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$1, create_fragment$3, safe_not_equal, []);
+			init(this, options, instance$2, create_fragment$3, safe_not_equal, []);
 		}
 	}
 
@@ -950,7 +962,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$2($$self, $$props, $$invalidate) {
+	function instance$3($$self, $$props, $$invalidate) {
 		let { url } = $$props;
 
 		let { $$slots = {}, $$scope } = $$props;
@@ -966,7 +978,7 @@ var app = (function () {
 	class RouterLink extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$2, create_fragment$4, safe_not_equal, ["url"]);
+			init(this, options, instance$3, create_fragment$4, safe_not_equal, ["url"]);
 
 			const { ctx } = this.$$;
 			const props = options.props || {};
