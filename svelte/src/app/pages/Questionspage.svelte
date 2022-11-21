@@ -1,22 +1,7 @@
 <script>
-  import FoodComponent from "../component/FoodComponent.svelte";
+    import FoodComponent from "../component/FoodComponent.svelte";
 
     let user_id = 1;
-    let start = 0;
-
-    function beginQuestions(){
-        
-
-    }
-
-    const saveRelation = (e) =>{
-        let newVote = e.detail;
-
-        axios.get("/users/", user_id )
-            .then( (response) => {
-                console.log(response.data);
-        })
-    }
 
 
     let food = {
@@ -28,4 +13,4 @@
 
 <h1> Questions </h1>
 
-<FoodComponent food_objekt={food} on:save-Vote{saveRelation}> </FoodComponent>
+<FoodComponent food_objekt={food}> </FoodComponent>

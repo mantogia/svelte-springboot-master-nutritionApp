@@ -37,9 +37,9 @@ class MyController {
         Optional<User> u = userRepository.findById(id);
 
         if(!u.isEmpty()){
-            return new ResponseEntity(u.get(), HttpStatus.OK);
+            return new ResponseEntity<User>(u.get(), HttpStatus.OK);
         }else{
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
         }
         
 

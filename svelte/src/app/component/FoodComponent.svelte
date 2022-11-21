@@ -1,23 +1,16 @@
 <script>
 
-    import {createEventDispatcher} from "svelte";
-
-
     export let food_objekt;
 
-
-    const dispatch = createEventDispatcher()
-    
     const handleVote = (vote) => {
         console.log(vote)
-        dispatch("save-Vote", vote)
     }
 
 </script>
 
 
 <div class="card" style="width: 18rem;">
-    <img src="..." class="card-img-top" alt="hier kommt das Bild hin">
+    <img src="./images/test.jpg" class="card-img-top" alt="hier kommt das Bild hin">
     <div class="card-body">
       <h5 class="card-title">Card title</h5>
         <p class="card-text">

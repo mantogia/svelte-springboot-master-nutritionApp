@@ -114,33 +114,10 @@ var app = (function () {
 		node.style.setProperty(key, value);
 	}
 
-	function custom_event(type, detail) {
-		const e = document.createEvent('CustomEvent');
-		e.initCustomEvent(type, false, false, detail);
-		return e;
-	}
-
 	let current_component;
 
 	function set_current_component(component) {
 		current_component = component;
-	}
-
-	function createEventDispatcher() {
-		const component = current_component;
-
-		return (type, detail) => {
-			const callbacks = component.$$.callbacks[type];
-
-			if (callbacks) {
-				// TODO are there situations where events could be dispatched
-				// in a server (non-DOM) environment?
-				const event = custom_event(type, detail);
-				callbacks.slice().forEach(fn => {
-					fn.call(component, event);
-				});
-			}
-		};
 	}
 
 	const dirty_components = [];
@@ -1138,25 +1115,25 @@ var app = (function () {
 				t8 = space();
 				button2 = element("button");
 				button2.textContent = "superlike";
-				img.src = "...";
+				img.src = "./images/test.jpg";
 				img.className = "card-img-top svelte-14wmfk2";
 				img.alt = "hier kommt das Bild hin";
-				add_location(img, file$4, 18, 4, 319);
+				add_location(img, file$4, 12, 4, 176);
 				h5.className = "card-title svelte-14wmfk2";
-				add_location(h5, file$4, 20, 6, 422);
+				add_location(h5, file$4, 14, 6, 293);
 				p.className = "card-text svelte-14wmfk2";
-				add_location(p, file$4, 21, 8, 470);
+				add_location(p, file$4, 15, 8, 341);
 				button0.className = "btn btn-primary";
-				add_location(button0, file$4, 24, 6, 550);
+				add_location(button0, file$4, 18, 6, 421);
 				button1.className = "btn btn-primary";
-				add_location(button1, file$4, 25, 6, 637);
+				add_location(button1, file$4, 19, 6, 508);
 				button2.className = "btn btn-primary";
-				add_location(button2, file$4, 26, 6, 721);
+				add_location(button2, file$4, 20, 6, 592);
 				div0.className = "card-body svelte-14wmfk2";
-				add_location(div0, file$4, 19, 4, 391);
+				add_location(div0, file$4, 13, 4, 262);
 				div1.className = "card svelte-14wmfk2";
 				set_style(div1, "width", "18rem");
-				add_location(div1, file$4, 17, 0, 273);
+				add_location(div1, file$4, 11, 0, 130);
 
 				dispose = [
 					listen(button0, "click", ctx.click_handler),
@@ -1208,12 +1185,8 @@ var app = (function () {
 	function instance$3($$self, $$props, $$invalidate) {
 		let { food_objekt } = $$props;
 
-
-	    const dispatch = createEventDispatcher();
-	    
 	    const handleVote = (vote) => {
 	        console.log(vote);
-	        dispatch("save-Vote", vote);
 	    };
 
 		function click_handler() {
@@ -1266,7 +1239,7 @@ var app = (function () {
 
 	const file$5 = "src\\app\\pages\\Questionspage.svelte";
 
-	// (21:0) <FoodComponent food_objekt={food} on>
+	// (16:0) <FoodComponent food_objekt={food}>
 	function create_default_slot(ctx) {
 		return {
 			c: noop,
@@ -1281,7 +1254,6 @@ var app = (function () {
 		var foodcomponent = new FoodComponent({
 			props: {
 			food_objekt: ctx.food,
-			on: true,
 			$$slots: { default: [create_default_slot] },
 			$$scope: { ctx }
 		},
@@ -1294,7 +1266,7 @@ var app = (function () {
 				h1.textContent = "Questions";
 				t_1 = space();
 				foodcomponent.$$.fragment.c();
-				add_location(h1, file$5, 18, 0, 274);
+				add_location(h1, file$5, 13, 0, 205);
 			},
 
 			l: function claim(nodes) {
@@ -1340,6 +1312,7 @@ var app = (function () {
 
 	function instance$4($$self) {
 		
+
 
 	    let food = {
 	        food_name: "pizza",
