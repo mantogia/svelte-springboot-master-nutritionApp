@@ -28,5 +28,11 @@
     <li>
       <RouterLink url='asas'>WrongPage</RouterLink>
     </li>
+
+    <li>
+      <RouterLink url='questions'>Questions</RouterLink>
+    </li>
+
+
   </ul>
 </nav>
