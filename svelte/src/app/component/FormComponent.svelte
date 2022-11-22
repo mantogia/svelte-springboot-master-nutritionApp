@@ -107,6 +107,6 @@ function check(){
     </div>
   </div>
   <div class="col-auto">
-    <button href="#/questions" disabled={disabled} type="button" on:click={saveUser} class="btn btn-primary mb-3" >Confirm identity</button>
+    <button disabled={disabled} type="button" on:click={saveUser} class="btn btn-primary mb-3" >Confirm identity</button>
   </div>
 </form>

@@ -624,7 +624,6 @@ var app = (function () {
 				add_location(div2, file$1, 104, 4, 2430);
 				div3.className = "mb-3 row";
 				add_location(div3, file$1, 102, 0, 2321);
-				attr(button, "href", "#/questions");
 				button.disabled = ctx.disabled;
 				button.type = "button";
 				button.className = "btn btn-primary mb-3";
