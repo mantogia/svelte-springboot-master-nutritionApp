@@ -1,5 +1,7 @@
 package tech.worldwild.application.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,24 +10,35 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Food_Ratings {
+public class Food_Rating {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    User user;
+    @ManyToOne (optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_user_id")
+    private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "food_id")
-    Food food;
+    @ManyToOne (optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "fk_food_id")
+    private Food food;
 
-
+    @Column
     private int rating;
 
+
+    public Food_Rating(User user, Food food, int rating) {
+        this.user = user;
+        this.food = food;
+        this.rating = rating;
+
+    }
+
+    public Food_Rating() {
+
+    }
 
     public Long getId() {
         return id;

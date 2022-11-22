@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import tech.worldwild.application.entities.Food_Ratings;
+import tech.worldwild.application.entities.Food;
+import tech.worldwild.application.entities.Food_Rating;
 import tech.worldwild.application.entities.User;
-import tech.worldwild.application.repositories.Food_RatingsRepository;
+import tech.worldwild.application.repositories.FoodRepository;
+import tech.worldwild.application.repositories.Food_RatingRepository;
 import tech.worldwild.application.repositories.UserRepository;
 
 @RestController
@@ -21,6 +23,12 @@ class MyController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private FoodRepository foodRepository;
+
+    @Autowired
+    private Food_RatingRepository foodRatingRepository;
 
 
     @GetMapping("/patients")
@@ -33,11 +41,32 @@ class MyController {
         return userRepository.save(newUser);
     }
 
-    @PostMapping("/food_ratings")
-    User newFoodRating(@RequestBody Food_Ratings newFoodRating){
-        newFoodRating.getUser().getRatings().add(newFoodRating);
-        return userRepository.save(newFoodRating.getUser());
+    @PostMapping("/food_ratings/{fk_user_id}/{fk_food_id}/{rating}")
+    public ResponseEntity<Food_Rating> newFoodRating(
+        @PathVariable("fk_user_id") long id_user, 
+        @PathVariable("fk_food_id") long id_food,
+        @PathVariable("rating") int rating)
+    {
+        Optional<User> u = userRepository.findById(id_user);
+        Optional<Food> f = foodRepository.findById(id_food);
+
+        if (!u.isEmpty() && !f.isEmpty()) {
+			User u1 = u.get();
+			Food f1 = f.get();
+
+            Food_Rating fr = new Food_Rating();
+            fr.setUser(u1);
+            fr.setFood(f1);
+            fr.setRating(rating);
+            return new ResponseEntity<Food_Rating>(foodRatingRepository.save(fr), HttpStatus.OK);
+        } else {
+
+            return new ResponseEntity<Food_Rating>(HttpStatus.NOT_FOUND);
+        }
+
     }
+        
+        
 
     @GetMapping("/users/{id}")
     public ResponseEntity<User> getUserByID(@PathVariable("id") Long id) {

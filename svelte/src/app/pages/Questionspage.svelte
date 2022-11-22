@@ -3,6 +3,16 @@
 
     let user_id = 1;
 
+    let user = {
+
+        user_id: 0,
+        user_name: "",
+        user_email: "",
+        user_password: "",
+        food_ratings: []
+
+    }
+
 
     let food = {
         food_id: 1,
@@ -12,8 +22,8 @@
 
     let foodRating = {
         rating: 0,
-        food_id: 0,
-        user_id: 0
+        food: 0,
+        user: 0
 
     }
 
@@ -25,10 +35,11 @@
 
             .then((response) => {
             console.log(response.data);
+            user = response.data;
+            if(user.user_id = user_id){
 
-            if(response.data.user_id = user_id){
-            foodRating.user_id = response.data.user_id;
-            foodRating.food_id = food.food_id;
+            foodRating.user = user;
+            foodRating.food = food;
             foodRating.rating = newVote;
 
             console.log(foodRating);
@@ -41,7 +52,7 @@
     }
 
     const save = () =>{
-        axios.post("/food_ratings", foodRating)
+        axios.post("/food_ratings/"+ foodRating.user.user_id+"/"+foodRating.food.food_id+"/"+foodRating.rating)
             .then((response) => {
             console.log(response.data);
             })

@@ -1,11 +1,8 @@
 package tech.worldwild.application.entities;
 
 
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 
 
@@ -21,6 +18,18 @@ public class Food {
     private String  sub_category_3;
     private String  sub_category_4;
     private String  sub_category_5;
+
+    
+    public Food(long food_id, String food_name, String category) {
+        this.food_id = food_id;
+        this.food_name = food_name;
+        this.category = category;
+
+    }
+
+    public Food() {
+
+    }
     
     public long getFood_id() {
         return food_id;
@@ -69,36 +78,6 @@ public class Food {
     }
     public void setCategory(String category) {
         this.category = category;
-    }
-    public String getsub_category_1() {
-        return sub_category_1;
-    }
-    public void setsub_category_1(String sub_category_1) {
-        this.sub_category_1 = sub_category_1;
-    }
-    public String getsub_category_2() {
-        return sub_category_2;
-    }
-    public void setsub_category_2(String sub_category_2) {
-        this.sub_category_2 = sub_category_2;
-    }
-    public String getsub_category_3() {
-        return sub_category_3;
-    }
-    public void setsub_category_3(String sub_category_3) {
-        this.sub_category_3 = sub_category_3;
-    }
-    public String getsub_category_4() {
-        return sub_category_4;
-    }
-    public void setsub_category_4(String sub_category_4) {
-        this.sub_category_4 = sub_category_4;
-    }
-    public String getsub_category_5() {
-        return sub_category_5;
-    }
-    public void setsub_category_5(String sub_category_5) {
-        this.sub_category_5 = sub_category_5;
     }
     
 

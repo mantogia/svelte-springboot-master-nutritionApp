@@ -3,8 +3,8 @@
 let user = {
     user_name: "",
     user_email: "",
-    user_password: ""
-
+    user_password: "",
+    food_ratings: []
 }
 
 
@@ -28,16 +28,13 @@ let minLength = 4;
 let check_username = false;
 
 function checkUsername(){
-    let username = user.user_name
-    if(username.length >= minLength){
-        console.log("user okey")
-        check_username = true;
-        check();
-    } else{
-        console.log("user bad")
-        check_username = false;
-    }
-
+        if(user.user_name.length >= minLength){
+            check_username = true;
+            check();
+        } else{
+            check_username = false;
+        }
+    
 }
 
 let check_mail = false;
@@ -108,6 +105,6 @@ function check(){
     </div>
   </div>
   <div class="col-auto">
-    <button  disabled={disabled} type="button" on:click={saveUser} class="btn btn-primary mb-3" >Confirm identity</button>
+    <button href="#/questions" disabled={disabled} type="button" on:click={saveUser} class="btn btn-primary mb-3" >Confirm identity</button>
   </div>
 </form>

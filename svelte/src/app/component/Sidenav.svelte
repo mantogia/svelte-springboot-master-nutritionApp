@@ -30,7 +30,7 @@
     </li>
 
     <li>
-      <RouterLink url='questions'>Questions</RouterLink>
+      <RouterLink url='questions'>Survey</RouterLink>
     </li>
 
 

@@ -8,10 +8,6 @@ var app = (function () {
 		return tar;
 	}
 
-	function is_promise(value) {
-		return value && typeof value.then === 'function';
-	}
-
 	function add_location(element, file, line, column, char) {
 		element.__svelte_meta = {
 			loc: { file, line, column, char }
@@ -69,12 +65,6 @@ var app = (function () {
 		node.parentNode.removeChild(node);
 	}
 
-	function destroy_each(iterations, detaching) {
-		for (let i = 0; i < iterations.length; i += 1) {
-			if (iterations[i]) iterations[i].d(detaching);
-		}
-	}
-
 	function element(name) {
 		return document.createElement(name);
 	}
@@ -85,10 +75,6 @@ var app = (function () {
 
 	function space() {
 		return text(' ');
-	}
-
-	function empty() {
-		return text('');
 	}
 
 	function listen(node, event, handler, options) {
@@ -225,67 +211,6 @@ var app = (function () {
 
 	function on_outro(callback) {
 		outros.callbacks.push(callback);
-	}
-
-	function handle_promise(promise, info) {
-		const token = info.token = {};
-
-		function update(type, index, key, value) {
-			if (info.token !== token) return;
-
-			info.resolved = key && { [key]: value };
-
-			const child_ctx = assign(assign({}, info.ctx), info.resolved);
-			const block = type && (info.current = type)(child_ctx);
-
-			if (info.block) {
-				if (info.blocks) {
-					info.blocks.forEach((block, i) => {
-						if (i !== index && block) {
-							group_outros();
-							on_outro(() => {
-								block.d(1);
-								info.blocks[i] = null;
-							});
-							block.o(1);
-							check_outros();
-						}
-					});
-				} else {
-					info.block.d(1);
-				}
-
-				block.c();
-				if (block.i) block.i(1);
-				block.m(info.mount(), info.anchor);
-
-				flush();
-			}
-
-			info.block = block;
-			if (info.blocks) info.blocks[index] = block;
-		}
-
-		if (is_promise(promise)) {
-			promise.then(value => {
-				update(info.then, 1, info.value, value);
-			}, error => {
-				update(info.catch, 2, info.error, error);
-			});
-
-			// if we previously had a then/catch block, destroy it
-			if (info.current !== info.pending) {
-				update(info.pending, 0);
-				return true;
-			}
-		} else {
-			if (info.current !== info.then) {
-				update(info.then, 1, info.value, promise);
-				return true;
-			}
-
-			info.resolved = { [info.value]: promise };
-		}
 	}
 
 	function mount_component(component, target, anchor) {
@@ -511,46 +436,47 @@ var app = (function () {
 				div4 = element("div");
 				button = element("button");
 				t11 = text("Confirm identity");
-				add_location(h2, file, 92, 0, 1666);
+				add_location(h2, file, 89, 0, 1619);
 				label0.htmlFor = "usernameInput";
 				label0.className = "form-label";
-				add_location(label0, file, 96, 4, 1748);
+				add_location(label0, file, 93, 4, 1701);
 				attr(input0, "type", "String");
 				input0.className = "form-control";
 				input0.id = "usernameInput";
 				input0.placeholder = "your username";
-				add_location(input0, file, 97, 4, 1816);
+				add_location(input0, file, 94, 4, 1769);
 				div0.className = "mb-3";
-				add_location(div0, file, 95, 0, 1724);
+				add_location(div0, file, 92, 0, 1677);
 				label1.htmlFor = "exampleFormControlInput1";
 				label1.className = "form-label";
-				add_location(label1, file, 100, 4, 1993);
+				add_location(label1, file, 97, 4, 1946);
 				attr(input1, "type", "email");
 				input1.className = "form-control";
 				input1.id = "exampleFormControlInput1";
 				input1.placeholder = "name@example.com";
-				add_location(input1, file, 101, 4, 2077);
+				add_location(input1, file, 98, 4, 2030);
 				div1.className = "mb-3";
-				add_location(div1, file, 99, 0, 1969);
+				add_location(div1, file, 96, 0, 1922);
 				label2.htmlFor = "inputPassword";
 				label2.className = "col-sm-2 col-form-label";
-				add_location(label2, file, 104, 4, 2275);
+				add_location(label2, file, 101, 4, 2228);
 				attr(input2, "type", "password");
 				input2.className = "form-control";
 				input2.id = "inputPassword";
-				add_location(input2, file, 106, 6, 2387);
+				add_location(input2, file, 103, 6, 2340);
 				div2.className = "col-sm-10";
-				add_location(div2, file, 105, 4, 2356);
+				add_location(div2, file, 102, 4, 2309);
 				div3.className = "mb-3 row";
-				add_location(div3, file, 103, 0, 2247);
+				add_location(div3, file, 100, 0, 2200);
+				attr(button, "href", "#/questions");
 				button.disabled = ctx.disabled;
 				button.type = "button";
 				button.className = "btn btn-primary mb-3";
-				add_location(button, file, 110, 4, 2562);
+				add_location(button, file, 107, 4, 2515);
 				div4.className = "col-auto";
-				add_location(div4, file, 109, 2, 2534);
+				add_location(div4, file, 106, 2, 2487);
 				form.className = "row g-3";
-				add_location(form, file, 94, 0, 1700);
+				add_location(form, file, 91, 0, 1653);
 
 				dispose = [
 					listen(input0, "input", ctx.input0_input_handler),
@@ -638,8 +564,8 @@ var app = (function () {
 		let user = {
 	    user_name: "",
 	    user_email: "",
-	    user_password: ""
-
+	    user_password: "",
+	    food_ratings: []
 	};
 
 
@@ -661,16 +587,13 @@ var app = (function () {
 	let check_username = false;
 
 	function checkUsername(){
-	    let username = user.user_name;
-	    if(username.length >= minLength){
-	        console.log("user okey");
-	        $$invalidate('check_username', check_username = true);
-	        check();
-	    } else{
-	        console.log("user bad");
-	        $$invalidate('check_username', check_username = false);
-	    }
-
+	        if(user.user_name.length >= minLength){
+	            $$invalidate('check_username', check_username = true);
+	            check();
+	        } else{
+	            $$invalidate('check_username', check_username = false);
+	        }
+	    
 	}
 
 	let check_mail = false;
@@ -749,178 +672,73 @@ var app = (function () {
 		}
 	}
 
-	/* src\app\component\GetList.svelte generated by Svelte v3.1.0 */
+	/* src\app\component\LoginComponent.svelte generated by Svelte v3.1.0 */
 
-	const file$1 = "src\\app\\component\\GetList.svelte";
-
-	function get_each_context(ctx, list, i) {
-		const child_ctx = Object.create(ctx);
-		child_ctx.element = list[i];
-		return child_ctx;
-	}
-
-	// (22:0) {:catch error}
-	function create_catch_block(ctx) {
-		var p, t_value = ctx.error.message, t;
-
-		return {
-			c: function create() {
-				p = element("p");
-				t = text(t_value);
-				set_style(p, "color", "red");
-				add_location(p, file$1, 22, 1, 367);
-			},
-
-			m: function mount(target, anchor) {
-				insert(target, p, anchor);
-				append(p, t);
-			},
-
-			p: noop,
-
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach(p);
-				}
-			}
-		};
-	}
-
-	// (18:0) {:then response}
-	function create_then_block(ctx) {
-		var each_1_anchor;
-
-		var each_value = ctx.response;
-
-		var each_blocks = [];
-
-		for (var i = 0; i < each_value.length; i += 1) {
-			each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
-		}
-
-		return {
-			c: function create() {
-				for (var i = 0; i < each_blocks.length; i += 1) {
-					each_blocks[i].c();
-				}
-
-				each_1_anchor = empty();
-			},
-
-			m: function mount(target, anchor) {
-				for (var i = 0; i < each_blocks.length; i += 1) {
-					each_blocks[i].m(target, anchor);
-				}
-
-				insert(target, each_1_anchor, anchor);
-			},
-
-			p: function update(changed, ctx) {
-				if (changed.promise) {
-					each_value = ctx.response;
-
-					for (var i = 0; i < each_value.length; i += 1) {
-						const child_ctx = get_each_context(ctx, each_value, i);
-
-						if (each_blocks[i]) {
-							each_blocks[i].p(changed, child_ctx);
-						} else {
-							each_blocks[i] = create_each_block(child_ctx);
-							each_blocks[i].c();
-							each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
-						}
-					}
-
-					for (; i < each_blocks.length; i += 1) {
-						each_blocks[i].d(1);
-					}
-					each_blocks.length = each_value.length;
-				}
-			},
-
-			d: function destroy(detaching) {
-				destroy_each(each_blocks, detaching);
-
-				if (detaching) {
-					detach(each_1_anchor);
-				}
-			}
-		};
-	}
-
-	// (19:1) {#each response as element}
-	function create_each_block(ctx) {
-		var p, t0, t1_value = ctx.element, t1;
-
-		return {
-			c: function create() {
-				p = element("p");
-				t0 = text("The number is ");
-				t1 = text(t1_value);
-				add_location(p, file$1, 19, 3, 311);
-			},
-
-			m: function mount(target, anchor) {
-				insert(target, p, anchor);
-				append(p, t0);
-				append(p, t1);
-			},
-
-			p: noop,
-
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach(p);
-				}
-			}
-		};
-	}
-
-	// (16:16)   <p>...waiting</p> {:then response}
-	function create_pending_block(ctx) {
-		var p;
-
-		return {
-			c: function create() {
-				p = element("p");
-				p.textContent = "...waiting";
-				add_location(p, file$1, 16, 1, 244);
-			},
-
-			m: function mount(target, anchor) {
-				insert(target, p, anchor);
-			},
-
-			p: noop,
-
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach(p);
-				}
-			}
-		};
-	}
+	const file$1 = "src\\app\\component\\LoginComponent.svelte";
 
 	function create_fragment$1(ctx) {
-		var await_block_anchor, promise_1;
-
-		let info = {
-			ctx,
-			current: null,
-			pending: create_pending_block,
-			then: create_then_block,
-			catch: create_catch_block,
-			value: 'response',
-			error: 'error'
-		};
-
-		handle_promise(promise_1 = ctx.promise, info);
+		var h2, t1, form, div0, label0, t3, input0, t4, div2, label1, t6, div1, input1, t7, div3, button, dispose;
 
 		return {
 			c: function create() {
-				await_block_anchor = empty();
+				h2 = element("h2");
+				h2.textContent = "Login Formular";
+				t1 = space();
+				form = element("form");
+				div0 = element("div");
+				label0 = element("label");
+				label0.textContent = "Username";
+				t3 = space();
+				input0 = element("input");
+				t4 = space();
+				div2 = element("div");
+				label1 = element("label");
+				label1.textContent = "Password";
+				t6 = space();
+				div1 = element("div");
+				input1 = element("input");
+				t7 = space();
+				div3 = element("div");
+				button = element("button");
+				button.textContent = "Confirm";
+				add_location(h2, file$1, 70, 4, 1334);
+				label0.htmlFor = "usernameInput";
+				label0.className = "form-label";
+				add_location(label0, file$1, 74, 8, 1425);
+				attr(input0, "type", "String");
+				input0.className = "form-control";
+				input0.id = "usernameInput";
+				input0.placeholder = "your username";
+				add_location(input0, file$1, 75, 8, 1497);
+				div0.className = "mb-3";
+				add_location(div0, file$1, 73, 4, 1397);
+				label1.htmlFor = "inputPassword";
+				label1.className = "col-sm-2 col-form-label";
+				add_location(label1, file$1, 78, 8, 1690);
+				attr(input1, "type", "password");
+				input1.className = "form-control";
+				input1.id = "inputPassword";
+				add_location(input1, file$1, 80, 10, 1810);
+				div1.className = "col-sm-10";
+				add_location(div1, file$1, 79, 8, 1775);
+				div2.className = "mb-3 row";
+				add_location(div2, file$1, 77, 4, 1658);
+				button.disabled = true;
+				button.type = "button";
+				button.className = "btn btn-primary mb-3";
+				add_location(button, file$1, 84, 8, 2001);
+				div3.className = "col-auto";
+				add_location(div3, file$1, 83, 6, 1969);
+				form.className = "row g-3";
+				add_location(form, file$1, 72, 4, 1369);
 
-				info.block.c();
+				dispose = [
+					listen(input0, "input", ctx.input0_input_handler),
+					listen(input0, "change", ctx.checkUsername),
+					listen(input1, "input", ctx.input1_input_handler),
+					listen(input1, "change", ctx.checkPassword),
+					listen(button, "click", ctx.checkAccount)
+				];
 			},
 
 			l: function claim(nodes) {
@@ -928,20 +746,33 @@ var app = (function () {
 			},
 
 			m: function mount(target, anchor) {
-				insert(target, await_block_anchor, anchor);
+				insert(target, h2, anchor);
+				insert(target, t1, anchor);
+				insert(target, form, anchor);
+				append(form, div0);
+				append(div0, label0);
+				append(div0, t3);
+				append(div0, input0);
 
-				info.block.m(target, info.anchor = anchor);
-				info.mount = () => await_block_anchor.parentNode;
-				info.anchor = await_block_anchor;
+				input0.value = ctx.user.user_name;
+
+				append(form, t4);
+				append(form, div2);
+				append(div2, label1);
+				append(div2, t6);
+				append(div2, div1);
+				append(div1, input1);
+
+				input1.value = ctx.user.user_password;
+
+				append(form, t7);
+				append(form, div3);
+				append(div3, button);
 			},
 
-			p: function update(changed, new_ctx) {
-				ctx = new_ctx;
-				info.ctx = ctx;
-
-				if (promise_1 !== (promise_1 = ctx.promise) && handle_promise(promise_1, info)) ; else {
-					info.block.p(changed, assign(assign({}, ctx), info.resolved));
-				}
+			p: function update(changed, ctx) {
+				if (changed.user) input0.value = ctx.user.user_name;
+				if (changed.user) input1.value = ctx.user.user_password;
 			},
 
 			i: noop,
@@ -949,33 +780,102 @@ var app = (function () {
 
 			d: function destroy(detaching) {
 				if (detaching) {
-					detach(await_block_anchor);
+					detach(h2);
+					detach(t1);
+					detach(form);
 				}
 
-				info.block.d(detaching);
-				info = null;
+				run_all(dispose);
 			}
 		};
 	}
 
-	async function getList() {
-	    const res = await fetch(`list`);
-		const text = await res.json();
+	let minLength$1 = 4;
 
-		if (res.ok) {
-			return text;
-		} else {
-			throw new Error(text);
-		} 
-	  }
-
-	function instance$1($$self) {
-		let promise = getList();
-
-		return { promise };
+	function hasNumbers$1(t)
+	    {
+	    var regex = /\d/g;
+	    return regex.test(t);
 	}
 
-	class GetList extends SvelteComponentDev {
+	function instance$1($$self, $$props, $$invalidate) {
+		let user = {
+	        user_name: "",
+	        user_email: "",
+	        user_password: "",
+	        food_ratings: []
+	    };
+	    
+	    
+	    let check_username = false;
+	    
+	    function checkUsername(){
+	        if(user.user_name.length >= minLength$1){
+	            $$invalidate('check_username', check_username = true);
+	            check();
+	        } else{
+	            $$invalidate('check_username', check_username = false);
+	        }
+	    
+	    }
+	    
+	    
+	    let check_password = false;
+	    
+	    function checkPassword(){
+	        let password = user.user_password;
+	    
+	        let test = hasNumbers$1(password);
+	        if(password.length >= minLength$1 && test){
+	            console.log("password okey");
+	            $$invalidate('check_password', check_password = true);
+	            check();
+	    
+	        } else{
+	            console.log("password bad");
+	            $$invalidate('check_password', check_password = false);
+	        }
+	    
+	    }   
+	    
+	    
+	    let disabled = !(check_password && check_username);
+	    
+	    function check(){
+	    
+	        $$invalidate('disabled', disabled = !(check_password && check_username));
+	    }
+	    
+	    
+	    function checkAccount(){
+
+	        axios.get("users/name/", user.user_name)
+	            .then;
+
+	        
+	    }
+
+		function input0_input_handler() {
+			user.user_name = this.value;
+			$$invalidate('user', user);
+		}
+
+		function input1_input_handler() {
+			user.user_password = this.value;
+			$$invalidate('user', user);
+		}
+
+		return {
+			user,
+			checkUsername,
+			checkPassword,
+			checkAccount,
+			input0_input_handler,
+			input1_input_handler
+		};
+	}
+
+	class LoginComponent extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
 			init(this, options, instance$1, create_fragment$1, safe_not_equal, []);
@@ -986,22 +886,106 @@ var app = (function () {
 
 	const file$2 = "src\\app\\pages\\Homepage.svelte";
 
-	function create_fragment$2(ctx) {
-		var h1, t1, t2, current;
+	// (27:0) {:else}
+	function create_else_block(ctx) {
+		var current;
+
+		var logincomponent = new LoginComponent({ $$inline: true });
+
+		return {
+			c: function create() {
+				logincomponent.$$.fragment.c();
+			},
+
+			m: function mount(target, anchor) {
+				mount_component(logincomponent, target, anchor);
+				current = true;
+			},
+
+			i: function intro(local) {
+				if (current) return;
+				logincomponent.$$.fragment.i(local);
+
+				current = true;
+			},
+
+			o: function outro(local) {
+				logincomponent.$$.fragment.o(local);
+				current = false;
+			},
+
+			d: function destroy(detaching) {
+				logincomponent.$destroy(detaching);
+			}
+		};
+	}
+
+	// (24:0) {#if neu}
+	function create_if_block(ctx) {
+		var current;
 
 		var formcomponent = new FormComponent({ $$inline: true });
 
-		var getlist = new GetList({ $$inline: true });
+		return {
+			c: function create() {
+				formcomponent.$$.fragment.c();
+			},
+
+			m: function mount(target, anchor) {
+				mount_component(formcomponent, target, anchor);
+				current = true;
+			},
+
+			i: function intro(local) {
+				if (current) return;
+				formcomponent.$$.fragment.i(local);
+
+				current = true;
+			},
+
+			o: function outro(local) {
+				formcomponent.$$.fragment.o(local);
+				current = false;
+			},
+
+			d: function destroy(detaching) {
+				formcomponent.$destroy(detaching);
+			}
+		};
+	}
+
+	function create_fragment$2(ctx) {
+		var h1, t1, current_block_type_index, if_block, t2, button, t3, current, dispose;
+
+		var if_block_creators = [
+			create_if_block,
+			create_else_block
+		];
+
+		var if_blocks = [];
+
+		function select_block_type(ctx) {
+			if (ctx.neu) return 0;
+			return 1;
+		}
+
+		current_block_type_index = select_block_type(ctx);
+		if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
 
 		return {
 			c: function create() {
 				h1 = element("h1");
 				h1.textContent = "Home sweet Home";
 				t1 = space();
-				formcomponent.$$.fragment.c();
+				if_block.c();
 				t2 = space();
-				getlist.$$.fragment.c();
-				add_location(h1, file$2, 5, 0, 137);
+				button = element("button");
+				t3 = text(ctx.text);
+				add_location(h1, file$2, 20, 0, 344);
+				button.type = "button";
+				button.className = "btn btn-secondary mb-3";
+				add_location(button, file$2, 32, 0, 436);
+				dispose = listen(button, "click", ctx.btnHandler);
 			},
 
 			l: function claim(nodes) {
@@ -1011,26 +995,47 @@ var app = (function () {
 			m: function mount(target, anchor) {
 				insert(target, h1, anchor);
 				insert(target, t1, anchor);
-				mount_component(formcomponent, target, anchor);
+				if_blocks[current_block_type_index].m(target, anchor);
 				insert(target, t2, anchor);
-				mount_component(getlist, target, anchor);
+				insert(target, button, anchor);
+				append(button, t3);
 				current = true;
 			},
 
-			p: noop,
+			p: function update(changed, ctx) {
+				var previous_block_index = current_block_type_index;
+				current_block_type_index = select_block_type(ctx);
+				if (current_block_type_index !== previous_block_index) {
+					group_outros();
+					on_outro(() => {
+						if_blocks[previous_block_index].d(1);
+						if_blocks[previous_block_index] = null;
+					});
+					if_block.o(1);
+					check_outros();
+
+					if_block = if_blocks[current_block_type_index];
+					if (!if_block) {
+						if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+						if_block.c();
+					}
+					if_block.i(1);
+					if_block.m(t2.parentNode, t2);
+				}
+
+				if (!current || changed.text) {
+					set_data(t3, ctx.text);
+				}
+			},
 
 			i: function intro(local) {
 				if (current) return;
-				formcomponent.$$.fragment.i(local);
-
-				getlist.$$.fragment.i(local);
-
+				if (if_block) if_block.i();
 				current = true;
 			},
 
 			o: function outro(local) {
-				formcomponent.$$.fragment.o(local);
-				getlist.$$.fragment.o(local);
+				if (if_block) if_block.o();
 				current = false;
 			},
 
@@ -1040,21 +1045,42 @@ var app = (function () {
 					detach(t1);
 				}
 
-				formcomponent.$destroy(detaching);
+				if_blocks[current_block_type_index].d(detaching);
 
 				if (detaching) {
 					detach(t2);
+					detach(button);
 				}
 
-				getlist.$destroy(detaching);
+				dispose();
 			}
 		};
+	}
+
+	function instance$2($$self, $$props, $$invalidate) {
+		
+
+
+	  let neu = true;
+
+	  let text = "Account exists";
+
+	  function btnHandler(){
+	  $$invalidate('neu', neu = !neu);
+	  if (neu){
+	    $$invalidate('text', text = "Login in existing Account");
+	  }else{
+	    $$invalidate('text', text = "Create new Account");
+	  }
+	  }
+
+		return { neu, text, btnHandler };
 	}
 
 	class Homepage extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, null, create_fragment$2, safe_not_equal, []);
+			init(this, options, instance$2, create_fragment$2, safe_not_equal, []);
 		}
 	}
 
@@ -1092,7 +1118,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$2($$self) {
+	function instance$3($$self) {
 		axios.get('/patients')
 	    .then((response) => {
 	        console.log(response.data);
@@ -1107,7 +1133,7 @@ var app = (function () {
 	class Notfound extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$2, create_fragment$3, safe_not_equal, []);
+			init(this, options, instance$3, create_fragment$3, safe_not_equal, []);
 		}
 	}
 
@@ -1205,7 +1231,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$3($$self, $$props, $$invalidate) {
+	function instance$4($$self, $$props, $$invalidate) {
 		let { food_objekt } = $$props;
 	    const dispatch = createEventDispatcher();
 
@@ -1245,7 +1271,7 @@ var app = (function () {
 	class FoodComponent extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$3, create_fragment$4, safe_not_equal, ["food_objekt"]);
+			init(this, options, instance$4, create_fragment$4, safe_not_equal, ["food_objekt"]);
 
 			const { ctx } = this.$$;
 			const props = options.props || {};
@@ -1267,7 +1293,7 @@ var app = (function () {
 
 	const file$5 = "src\\app\\pages\\Questionspage.svelte";
 
-	// (58:0) <FoodComponent food_objekt={food} on:save-vote={saveRelation}>
+	// (69:0) <FoodComponent food_objekt={food} on:save-vote={saveRelation}>
 	function create_default_slot(ctx) {
 		return {
 			c: noop,
@@ -1295,7 +1321,7 @@ var app = (function () {
 				h1.textContent = "Questions";
 				t_1 = space();
 				foodcomponent.$$.fragment.c();
-				add_location(h1, file$5, 55, 0, 1185);
+				add_location(h1, file$5, 66, 0, 1393);
 			},
 
 			l: function claim(nodes) {
@@ -1341,8 +1367,18 @@ var app = (function () {
 
 	let user_id = 1;
 
-	function instance$4($$self, $$props, $$invalidate) {
+	function instance$5($$self, $$props, $$invalidate) {
 		
+
+	    let user = {
+
+	        user_id: 0,
+	        user_name: "",
+	        user_email: "",
+	        user_password: "",
+	        food_ratings: []
+
+	    };
 
 
 	    let food = {
@@ -1353,8 +1389,8 @@ var app = (function () {
 
 	    let foodRating = {
 	        rating: 0,
-	        food_id: 0,
-	        user_id: 0
+	        food: 0,
+	        user: 0
 
 	    };
 
@@ -1366,10 +1402,11 @@ var app = (function () {
 
 	            .then((response) => {
 	            console.log(response.data);
+	            $$invalidate('user', user = response.data);
+	            if(user.user_id = user_id){
 
-	            if(response.data.user_id = user_id){
-	            foodRating.user_id = response.data.user_id; $$invalidate('foodRating', foodRating);
-	            foodRating.food_id = food.food_id; $$invalidate('foodRating', foodRating);
+	            foodRating.user = user; $$invalidate('user', user); $$invalidate('foodRating', foodRating);
+	            foodRating.food = food; $$invalidate('foodRating', foodRating);
 	            foodRating.rating = newVote; $$invalidate('foodRating', foodRating);
 
 	            console.log(foodRating);
@@ -1382,7 +1419,7 @@ var app = (function () {
 	    };
 
 	    const save = () =>{
-	        axios.post("/food_ratings", foodRating)
+	        axios.post("/food_ratings/"+ foodRating.user.user_id+"/"+foodRating.food.food_id+"/"+foodRating.rating)
 	            .then((response) => {
 	            console.log(response.data);
 	            })
@@ -1397,7 +1434,7 @@ var app = (function () {
 	class Questionspage extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$4, create_fragment$5, safe_not_equal, []);
+			init(this, options, instance$5, create_fragment$5, safe_not_equal, []);
 		}
 	}
 
@@ -1486,7 +1523,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$5($$self, $$props, $$invalidate) {
+	function instance$6($$self, $$props, $$invalidate) {
 		
 
 	  let value = Notfound;
@@ -1510,7 +1547,7 @@ var app = (function () {
 	class Router extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$5, create_fragment$6, safe_not_equal, []);
+			init(this, options, instance$6, create_fragment$6, safe_not_equal, []);
 		}
 	}
 
@@ -1581,7 +1618,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$6($$self, $$props, $$invalidate) {
+	function instance$7($$self, $$props, $$invalidate) {
 		let { url } = $$props;
 
 		let { $$slots = {}, $$scope } = $$props;
@@ -1597,7 +1634,7 @@ var app = (function () {
 	class RouterLink extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$6, create_fragment$7, safe_not_equal, ["url"]);
+			init(this, options, instance$7, create_fragment$7, safe_not_equal, ["url"]);
 
 			const { ctx } = this.$$;
 			const props = options.props || {};
@@ -1667,7 +1704,7 @@ var app = (function () {
 
 		return {
 			c: function create() {
-				t = text("Questions");
+				t = text("Survey");
 			},
 
 			m: function mount(target, anchor) {

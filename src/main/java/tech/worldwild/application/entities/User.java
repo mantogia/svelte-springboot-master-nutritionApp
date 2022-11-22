@@ -1,14 +1,16 @@
 package tech.worldwild.application.entities;
 
 
-import java.util.Set;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
 
 
 @Entity
@@ -20,6 +22,23 @@ public class User {
     private String user_name;
     private String  user_email;
     private String  user_password;
+
+    
+    @OneToMany(mappedBy = "user")
+    List<Food_Rating> food_ratings;
+
+    
+    public User(String user_name, String user_email, String user_password) {
+        this.user_name = user_name;
+        this.user_email = user_email;
+        this.user_password = user_password;
+        this.food_ratings = new ArrayList<Food_Rating>();
+
+    }
+
+    public User() {
+
+    }
 
 
     public long getUser_id() {
@@ -47,8 +66,21 @@ public class User {
         this.user_password = user_password;
     }
 
+    public List<Long> getFood_ratings() {
 
-    
+        List<Long> result = new ArrayList<Long>();
+		for (Food_Rating current : food_ratings ) {
+			result.add(current.getId());
+		}
+		return result;
+
+    }
+
+    public void setFood_ratings(List<Food_Rating> food_ratings) {
+        this.food_ratings = food_ratings;
+    }
+
+   
 
     
 }
