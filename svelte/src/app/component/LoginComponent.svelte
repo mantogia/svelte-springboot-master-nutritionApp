@@ -82,6 +82,6 @@
         </div>
       </div>
       <div class="col-auto">
-        <button disabled={true} type="button" on:click={checkAccount} class="btn btn-primary mb-3" >Confirm</button>
+        <button disabled={disabled} type="button" on:click={checkAccount} class="btn btn-primary mb-3" >Confirm</button>
       </div>
     </form>
