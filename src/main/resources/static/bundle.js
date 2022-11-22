@@ -981,10 +981,10 @@ var app = (function () {
 				t2 = space();
 				button = element("button");
 				t3 = text(ctx.text);
-				add_location(h1, file$2, 20, 0, 344);
+				add_location(h1, file$2, 20, 0, 364);
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$2, 32, 0, 436);
+				add_location(button, file$2, 32, 0, 468);
 				dispose = listen(button, "click", ctx.btnHandler);
 			},
 
@@ -1459,8 +1459,8 @@ var app = (function () {
 			c: function create() {
 				main = element("main");
 				if (switch_instance) switch_instance.$$.fragment.c();
-				main.className = "svelte-1arjn8m";
-				add_location(main, file$6, 31, 0, 631);
+				main.className = "svelte-1hy6a0h";
+				add_location(main, file$6, 31, 0, 662);
 			},
 
 			l: function claim(nodes) {
@@ -1568,8 +1568,8 @@ var app = (function () {
 				if (default_slot) default_slot.c();
 
 				a.href = a_href_value = "#/" + ctx.url;
-				a.className = "svelte-1b10eml";
-				add_location(a, file$7, 10, 0, 102);
+				a.className = "svelte-hh9rz7";
+				add_location(a, file$7, 10, 0, 112);
 			},
 
 			l: function claim(nodes) {
@@ -1764,17 +1764,17 @@ var app = (function () {
 				t3 = space();
 				li2 = element("li");
 				routerlink2.$$.fragment.c();
-				add_location(h1, file$8, 22, 2, 305);
-				li0.className = "svelte-z3uaim";
-				add_location(li0, file$8, 24, 4, 333);
-				li1.className = "svelte-z3uaim";
-				add_location(li1, file$8, 27, 4, 399);
-				li2.className = "svelte-z3uaim";
-				add_location(li2, file$8, 31, 4, 471);
-				ul.className = "svelte-z3uaim";
-				add_location(ul, file$8, 23, 2, 324);
-				nav.className = "svelte-z3uaim";
-				add_location(nav, file$8, 21, 0, 297);
+				add_location(h1, file$8, 22, 2, 327);
+				li0.className = "svelte-12r64cf";
+				add_location(li0, file$8, 24, 4, 357);
+				li1.className = "svelte-12r64cf";
+				add_location(li1, file$8, 27, 4, 426);
+				li2.className = "svelte-12r64cf";
+				add_location(li2, file$8, 31, 4, 502);
+				ul.className = "svelte-12r64cf";
+				add_location(ul, file$8, 23, 2, 347);
+				nav.className = "svelte-12r64cf";
+				add_location(nav, file$8, 21, 0, 318);
 			},
 
 			l: function claim(nodes) {
@@ -1870,8 +1870,8 @@ var app = (function () {
 				sidenav.$$.fragment.c();
 				t = space();
 				router.$$.fragment.c();
-				div.className = "app-shell svelte-h5712t";
-				add_location(div, file$9, 16, 0, 260);
+				div.className = "app-shell svelte-17simda";
+				add_location(div, file$9, 16, 0, 276);
 			},
 
 			l: function claim(nodes) {
