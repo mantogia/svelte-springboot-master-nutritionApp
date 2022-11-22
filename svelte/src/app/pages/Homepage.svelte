@@ -3,6 +3,8 @@
   import FormComponent from '../component/FormComponent.svelte';
   import LoginComponent from '../component/LoginComponent.svelte';
 
+  import { admin } from '../stores/stores.js';
+
 
   let neu = true;
 
@@ -28,6 +30,9 @@ let food = {
 
 function einloggen(){
   loggedIn = true;
+  if (JSON.parse(localStorage.current_user).user_id == 1){
+    setAdmin();
+  }
 }
 
 function ausloggen(){
@@ -35,6 +40,13 @@ function ausloggen(){
   loggedIn = false;
   localStorage.clear();
 }
+
+function setAdmin() {
+	admin.set(true);
+  console.log("test");
+
+}
+
 
 </script>
 
