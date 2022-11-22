@@ -1,5 +1,8 @@
 <script>
 
+import { createEventDispatcher} from "svelte";
+const dispatch = createEventDispatcher();
+
 let user = {
     user_name: "",
     user_email: "",
@@ -15,6 +18,9 @@ function saveUser(){
     axios.post('/users', user)
         .then((response) => {
             console.log(response.data);
+            localStorage.current_user = JSON.stringify(response.data);
+            console.log(localStorage.current_user)
+            dispatch("logIn", response.data)
         })
         .catch((error) => {
             console.log(error);
@@ -42,11 +48,9 @@ let check_mail = false;
 function checkEmailAdress(){
     let mail = user.user_email
     if(mail.length >= minLength && mail.search("@") != -1 && mail.search(".") != -1){
-        console.log("mail okey")
         check_mail = true;
         check();
     } else{
-        console.log("mail bad")
         check_mail = false;
     }
 
@@ -59,12 +63,10 @@ function checkPassword(){
 
     let test = hasNumbers(password);
     if(password.length >= minLength && test){
-        console.log("password okey")
         check_password = true;
         check();
 
     } else{
-        console.log("password bad")
         check_password = false;
     }
 

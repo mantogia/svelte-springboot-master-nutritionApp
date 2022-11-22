@@ -1,4 +1,5 @@
 <script>
+  import FoodComponent from '../component/FoodComponent.svelte';
   import FormComponent from '../component/FormComponent.svelte';
   import LoginComponent from '../component/LoginComponent.svelte';
 
@@ -15,31 +16,48 @@
     text = "Create new Account"
   }
   }
-  
-  let u =  {
-    user_name: "",
-    user_email: "",
-    user_password: "",
-    food_ratings: []
 
+//let loggedIn = false;
+let loggedIn = localStorage.current_user != null;
+
+let food = {
+        food_id: 1,
+        food_name: "pizza",
+        category: "gerichte"
 }
 
-  localStorage.current_user = u;
+function einloggen(){
+  loggedIn = true;
+}
+
+function ausloggen(){
+  console.log("logged out");
+  loggedIn = false;
+  localStorage.clear();
+}
 
 </script>
+
 
 <h1>Home sweet Home</h1>
 
 
-{#if neu}
-<FormComponent />
+
+{#if !loggedIn}
+  {#if neu}
+  <FormComponent on:logIn={einloggen}/>
+
+  {:else}
+
+  <LoginComponent  on:logIn={einloggen}/>
+
+  {/if}
+
+  <button type="button" on:click={btnHandler} class="btn btn-secondary mb-3" >{text}</button>
 
 {:else}
+  <button type="button" on:click={ausloggen} class="btn btn-secondary mb-3" >Ausloggen</button>
 
-<LoginComponent />
+  <FoodComponent food_objekt ={food}/>
 
 {/if}
-
-<button type="button" on:click={btnHandler} class="btn btn-secondary mb-3" >{text}</button>
-
-

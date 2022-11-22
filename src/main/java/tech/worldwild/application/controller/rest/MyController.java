@@ -76,9 +76,19 @@ class MyController {
             return new ResponseEntity<User>(u.get(), HttpStatus.OK);
         }else{
             return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
-        }
+        } 
         
+    }
 
+    @GetMapping("/users/name/{name}")
+    public ResponseEntity<User> getUserByName(@PathVariable("name") String name) {
+        Optional<User> u = userRepository.findByUserName(name);
+
+        if(!u.isEmpty()){
+            return new ResponseEntity<User>(u.get(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        } 
         
     }
 

@@ -1,5 +1,8 @@
 <script>
 
+    import { createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
+
     let user = {
         user_name: "",
         user_email: "",
@@ -8,7 +11,6 @@
     }
     
     let minLength = 4;
-    
     
     let check_username = false;
     
@@ -30,12 +32,10 @@
     
         let test = hasNumbers(password);
         if(password.length >= minLength && test){
-            console.log("password okey")
             check_password = true;
             check();
     
         } else{
-            console.log("password bad")
             check_password = false;
         }
     
@@ -58,12 +58,31 @@
     
     function checkAccount(){
 
-        axios.get("users/name/", user.user_name)
-            .then
+        axios.get("users/name/" + user.user_name)
+            .then((response) => {
+            console.log(response.data);
+            const pw = response.data.user_password
+            if(pw.localeCompare(user.user_password) == 0){
 
-        
+                localStorage.current_user = JSON.stringify(response.data);
+                console.log(localStorage.current_user)
+
+                console.log(JSON.parse(localStorage.current_user).user_name)
+                console.log("localStorage gespeichert")
+                dispatch("logIn", response.data)
+
+                
+            } else{
+
+                console.log("Username or Password is invalid")
+                
+            }
+
+            })
+            .catch((error) => {
+                console.log(error)
+            })
     }
-
 
     
     </script>

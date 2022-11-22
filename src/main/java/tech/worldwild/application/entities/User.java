@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class User {
@@ -23,7 +25,7 @@ public class User {
     private String  user_email;
     private String  user_password;
 
-    
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     List<Food_Rating> food_ratings;
 
