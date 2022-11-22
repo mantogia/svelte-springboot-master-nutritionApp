@@ -677,7 +677,7 @@ var app = (function () {
 	const file$1 = "src\\app\\component\\LoginComponent.svelte";
 
 	function create_fragment$1(ctx) {
-		var h2, t1, form, div0, label0, t3, input0, t4, div2, label1, t6, div1, input1, t7, div3, button, dispose;
+		var h2, t1, form, div0, label0, t3, input0, t4, div2, label1, t6, div1, input1, t7, div3, button, t8, dispose;
 
 		return {
 			c: function create() {
@@ -700,7 +700,7 @@ var app = (function () {
 				t7 = space();
 				div3 = element("div");
 				button = element("button");
-				button.textContent = "Confirm";
+				t8 = text("Confirm");
 				add_location(h2, file$1, 70, 4, 1334);
 				label0.htmlFor = "usernameInput";
 				label0.className = "form-label";
@@ -723,7 +723,7 @@ var app = (function () {
 				add_location(div1, file$1, 79, 8, 1775);
 				div2.className = "mb-3 row";
 				add_location(div2, file$1, 77, 4, 1658);
-				button.disabled = true;
+				button.disabled = ctx.disabled;
 				button.type = "button";
 				button.className = "btn btn-primary mb-3";
 				add_location(button, file$1, 84, 8, 2001);
@@ -768,11 +768,16 @@ var app = (function () {
 				append(form, t7);
 				append(form, div3);
 				append(div3, button);
+				append(button, t8);
 			},
 
 			p: function update(changed, ctx) {
 				if (changed.user) input0.value = ctx.user.user_name;
 				if (changed.user) input1.value = ctx.user.user_password;
+
+				if (changed.disabled) {
+					button.disabled = ctx.disabled;
+				}
 			},
 
 			i: noop,
@@ -869,6 +874,7 @@ var app = (function () {
 			user,
 			checkUsername,
 			checkPassword,
+			disabled,
 			checkAccount,
 			input0_input_handler,
 			input1_input_handler
@@ -886,7 +892,7 @@ var app = (function () {
 
 	const file$2 = "src\\app\\pages\\Homepage.svelte";
 
-	// (27:0) {:else}
+	// (37:0) {:else}
 	function create_else_block(ctx) {
 		var current;
 
@@ -920,7 +926,7 @@ var app = (function () {
 		};
 	}
 
-	// (24:0) {#if neu}
+	// (34:0) {#if neu}
 	function create_if_block(ctx) {
 		var current;
 
@@ -981,10 +987,10 @@ var app = (function () {
 				t2 = space();
 				button = element("button");
 				t3 = text(ctx.text);
-				add_location(h1, file$2, 20, 0, 364);
+				add_location(h1, file$2, 30, 0, 510);
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$2, 32, 0, 468);
+				add_location(button, file$2, 42, 0, 614);
 				dispose = listen(button, "click", ctx.btnHandler);
 			},
 
@@ -1073,6 +1079,16 @@ var app = (function () {
 	    $$invalidate('text', text = "Create new Account");
 	  }
 	  }
+	  
+	  let u =  {
+	    user_name: "",
+	    user_email: "",
+	    user_password: "",
+	    food_ratings: []
+
+	};
+
+	  localStorage.current_user = u;
 
 		return { neu, text, btnHandler };
 	}

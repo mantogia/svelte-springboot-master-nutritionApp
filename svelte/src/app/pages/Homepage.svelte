@@ -15,6 +15,16 @@
     text = "Create new Account"
   }
   }
+  
+  let u =  {
+    user_name: "",
+    user_email: "",
+    user_password: "",
+    food_ratings: []
+
+}
+
+  localStorage.current_user = u;
 
 </script>
 
