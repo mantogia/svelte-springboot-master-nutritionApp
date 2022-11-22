@@ -1,7 +1,13 @@
 package tech.worldwild.application.entities;
 
+
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+
 
 @Entity
 public class Food {
@@ -15,8 +21,6 @@ public class Food {
     private String  sub_category_3;
     private String  sub_category_4;
     private String  sub_category_5;
-
-
     
     public long getFood_id() {
         return food_id;

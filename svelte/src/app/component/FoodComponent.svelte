@@ -2,8 +2,15 @@
 
     export let food_objekt;
 
+    import { createEventDispatcher} from "svelte";
+    const dispatch = createEventDispatcher();
+
+
     const handleVote = (vote) => {
         console.log(vote)
+
+        dispatch('save-vote', vote);
+
     }
 
 </script>

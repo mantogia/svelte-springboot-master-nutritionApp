@@ -1,9 +1,13 @@
 package tech.worldwild.application.entities;
 
+
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 
@@ -42,6 +46,7 @@ public class User {
     public void setUser_password(String user_password) {
         this.user_password = user_password;
     }
+
 
     
 

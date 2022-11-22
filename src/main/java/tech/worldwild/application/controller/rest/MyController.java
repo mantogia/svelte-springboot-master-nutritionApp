@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tech.worldwild.application.entities.Food_Ratings;
 import tech.worldwild.application.entities.User;
+import tech.worldwild.application.repositories.Food_RatingsRepository;
 import tech.worldwild.application.repositories.UserRepository;
 
 @RestController
@@ -28,8 +30,13 @@ class MyController {
 
     @PostMapping("/users")
     User newUser(@RequestBody User newUser){
-        System.out.println(newUser);
         return userRepository.save(newUser);
+    }
+
+    @PostMapping("/food_ratings")
+    User newFoodRating(@RequestBody Food_Ratings newFoodRating){
+        newFoodRating.getUser().getRatings().add(newFoodRating);
+        return userRepository.save(newFoodRating.getUser());
     }
 
     @GetMapping("/users/{id}")
