@@ -2,8 +2,10 @@
   import FoodComponent from '../component/FoodComponent.svelte';
   import FormComponent from '../component/FormComponent.svelte';
   import LoginComponent from '../component/LoginComponent.svelte';
+  import { onMount } from 'svelte';
 
   import { admin } from '../stores/stores.js';
+  import { foodListe } from '../stores/stores.js';
 
 
   let neu = true;
@@ -21,12 +23,6 @@
 
 //let loggedIn = false;
 let loggedIn = localStorage.current_user != null;
-
-let food = {
-        food_id: 1,
-        food_name: "pizza",
-        category: "gerichte"
-}
 
 function einloggen(){
   loggedIn = true;
@@ -48,6 +44,47 @@ function setAdmin() {
 }
 
 
+let maxIndex =  foodListe.length;
+let index = 0;
+
+let foodRating = {
+        rating: null,
+        food: null,
+        user: null
+
+    };
+
+let food = {};
+
+const saveRelation = (e) => {
+
+            foodRating.user = JSON.parse(localStorage.current_user);
+            foodRating.food = food;
+            foodRating.rating = e.detail;
+
+            console.log(foodRating);
+            save(); 
+            nextFood(); 
+    }
+
+    const save = () =>{
+        axios.post("/food_ratings/" + foodRating.user.user_id + "/"+ foodRating.food.food_id+"/"+foodRating.rating)
+            .then((response) => {
+            console.log(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+    let food_nr = foodListe[index];
+
+    const nextFood = () =>{
+      if (index < maxIndex){
+        index = index+1;
+        food_nr = foodListe[index];
+      }
+      
+    }
 </script>
 
 
@@ -70,6 +107,6 @@ function setAdmin() {
 {:else}
   <button type="button" on:click={ausloggen} class="btn btn-secondary mb-3" >Ausloggen</button>
 
-  <FoodComponent food_objekt ={food}/>
+  <FoodComponent food_nr={food_nr} on:save-vote={saveRelation} onChange={newFood => food = newFood} />
 
 {/if}

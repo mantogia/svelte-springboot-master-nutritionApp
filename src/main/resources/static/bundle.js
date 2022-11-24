@@ -116,6 +116,15 @@ var app = (function () {
 		current_component = component;
 	}
 
+	function get_current_component() {
+		if (!current_component) throw new Error(`Function called outside component initialization`);
+		return current_component;
+	}
+
+	function onMount(fn) {
+		get_current_component().$$.on_mount.push(fn);
+	}
+
 	function createEventDispatcher() {
 		const component = current_component;
 
@@ -410,7 +419,7 @@ var app = (function () {
 	const file = "src\\app\\component\\FoodComponent.svelte";
 
 	function create_fragment(ctx) {
-		var div1, img, t0, div0, h5, t2, p, t3_value = ctx.food_objekt.food_name, t3, t4, button0, t6, button1, t8, button2, dispose;
+		var div1, img, img_src_value, t0, div0, p, t1_value = ctx.food.food_name, t1, t2, button0, t4, button1, t6, button2, dispose;
 
 		return {
 			c: function create() {
@@ -418,39 +427,34 @@ var app = (function () {
 				img = element("img");
 				t0 = space();
 				div0 = element("div");
-				h5 = element("h5");
-				h5.textContent = "Card title";
-				t2 = space();
 				p = element("p");
-				t3 = text(t3_value);
-				t4 = space();
+				t1 = text(t1_value);
+				t2 = space();
 				button0 = element("button");
 				button0.textContent = "dislike";
-				t6 = space();
+				t4 = space();
 				button1 = element("button");
 				button1.textContent = "like";
-				t8 = space();
+				t6 = space();
 				button2 = element("button");
 				button2.textContent = "superlike";
-				img.src = "./images/test.jpg";
+				img.src = img_src_value = "./images/" + ctx.food_nr + ".jpg";
 				img.className = "card-img-top svelte-14wmfk2";
 				img.alt = "hier kommt das Bild hin";
-				add_location(img, file, 19, 4, 321);
-				h5.className = "card-title svelte-14wmfk2";
-				add_location(h5, file, 21, 6, 438);
+				add_location(img, file, 42, 4, 763);
 				p.className = "card-text svelte-14wmfk2";
-				add_location(p, file, 22, 8, 486);
+				add_location(p, file, 44, 8, 887);
 				button0.className = "btn btn-primary";
-				add_location(button0, file, 25, 6, 566);
+				add_location(button0, file, 47, 6, 960);
 				button1.className = "btn btn-primary";
-				add_location(button1, file, 26, 6, 653);
+				add_location(button1, file, 48, 6, 1047);
 				button2.className = "btn btn-primary";
-				add_location(button2, file, 27, 6, 737);
+				add_location(button2, file, 49, 6, 1131);
 				div0.className = "card-body svelte-14wmfk2";
-				add_location(div0, file, 20, 4, 407);
+				add_location(div0, file, 43, 4, 854);
 				div1.className = "card svelte-14wmfk2";
 				set_style(div1, "width", "18rem");
-				add_location(div1, file, 18, 0, 275);
+				add_location(div1, file, 41, 0, 717);
 
 				dispose = [
 					listen(button0, "click", ctx.click_handler),
@@ -468,21 +472,23 @@ var app = (function () {
 				append(div1, img);
 				append(div1, t0);
 				append(div1, div0);
-				append(div0, h5);
-				append(div0, t2);
 				append(div0, p);
-				append(p, t3);
-				append(div0, t4);
+				append(p, t1);
+				append(div0, t2);
 				append(div0, button0);
-				append(div0, t6);
+				append(div0, t4);
 				append(div0, button1);
-				append(div0, t8);
+				append(div0, t6);
 				append(div0, button2);
 			},
 
-			p: function update(changed, ctx) {
-				if ((changed.food_objekt) && t3_value !== (t3_value = ctx.food_objekt.food_name)) {
-					set_data(t3, t3_value);
+			p: function update_1(changed, ctx) {
+				if ((changed.food_nr) && img_src_value !== (img_src_value = "./images/" + ctx.food_nr + ".jpg")) {
+					img.src = img_src_value;
+				}
+
+				if ((changed.food) && t1_value !== (t1_value = ctx.food.food_name)) {
+					set_data(t1, t1_value);
 				}
 			},
 
@@ -500,8 +506,23 @@ var app = (function () {
 	}
 
 	function instance($$self, $$props, $$invalidate) {
-		let { food_objekt } = $$props;
+		let { food_nr } = $$props;
+	    let food = {};
+
 	    const dispatch = createEventDispatcher();
+
+	    onMount(() => update());
+
+	    function update(){
+	        axios.get("/foods/" + food_nr)
+	        .then((response) => {
+	            console.log(response.data);
+	            $$invalidate('food', food = response.data);
+	        })
+	        .catch((error) => {
+	            console.log(error);
+	        });
+	    }
 
 
 	    const handleVote = (vote) => {
@@ -510,6 +531,8 @@ var app = (function () {
 	        dispatch('save-vote', vote);
 
 	    };
+
+	    let { onChange } = $$props;
 
 		function click_handler() {
 			return handleVote(0);
@@ -524,12 +547,20 @@ var app = (function () {
 		}
 
 		$$self.$set = $$props => {
-			if ('food_objekt' in $$props) $$invalidate('food_objekt', food_objekt = $$props.food_objekt);
+			if ('food_nr' in $$props) $$invalidate('food_nr', food_nr = $$props.food_nr);
+			if ('onChange' in $$props) $$invalidate('onChange', onChange = $$props.onChange);
+		};
+
+		$$self.$$.update = ($$dirty = { onChange: 1, food: 1, food_nr: 1 }) => {
+			if ($$dirty.onChange || $$dirty.food) { onChange(food); }
+			if ($$dirty.food_nr) { food_nr && update(); }
 		};
 
 		return {
-			food_objekt,
+			food_nr,
+			food,
 			handleVote,
+			onChange,
 			click_handler,
 			click_handler_1,
 			click_handler_2
@@ -539,20 +570,31 @@ var app = (function () {
 	class FoodComponent extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance, create_fragment, safe_not_equal, ["food_objekt"]);
+			init(this, options, instance, create_fragment, safe_not_equal, ["food_nr", "onChange"]);
 
 			const { ctx } = this.$$;
 			const props = options.props || {};
-			if (ctx.food_objekt === undefined && !('food_objekt' in props)) {
-				console.warn("<FoodComponent> was created without expected prop 'food_objekt'");
+			if (ctx.food_nr === undefined && !('food_nr' in props)) {
+				console.warn("<FoodComponent> was created without expected prop 'food_nr'");
+			}
+			if (ctx.onChange === undefined && !('onChange' in props)) {
+				console.warn("<FoodComponent> was created without expected prop 'onChange'");
 			}
 		}
 
-		get food_objekt() {
+		get food_nr() {
 			throw new Error("<FoodComponent>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 		}
 
-		set food_objekt(value) {
+		set food_nr(value) {
+			throw new Error("<FoodComponent>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		}
+
+		get onChange() {
+			throw new Error("<FoodComponent>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		}
+
+		set onChange(value) {
 			throw new Error("<FoodComponent>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
 		}
 	}
@@ -1063,20 +1105,138 @@ var app = (function () {
 		}
 	}
 
-	const admin = writable(false);
+	let control;
+	try{
+
+	    control = (JSON.parse(localStorage.current_user).user_id == 1);
+	} 
+	catch{
+	    
+	    control = (false);
+	}
+
+
+	const admin = writable(control);
+
+
+	const foodListe = [
+	    1,
+	    2,
+	    3,
+	    4,
+	    5,
+	    6,
+	    7,
+	    8,
+	    9,
+	    10,
+	    11,
+	    12,
+	    13,
+	    14,
+	    15,
+	    16,
+	    17,
+	    18,
+	    19,
+	    20,
+	    22,
+	    24,
+	    26,
+	    28,
+	    29,
+	    30,
+	    32,
+	    34,
+	    35,
+	    36,
+	    37,
+	    38,
+	    39,
+	    40,
+	    41,
+	    42,
+	    43,
+	    47,
+	    49,
+	    50,
+	    51,
+	    52,
+	    53,
+	    54,
+	    55,
+	    56,
+	    57,
+	    58,
+	    59,
+	    60,
+	    61,
+	    62,
+	    63,
+	    64,
+	    65,
+	    66,
+	    67,
+	    68,
+	    69,
+	    70,
+	    71,
+	    72,
+	    82,
+	    99,
+	    191,
+	    193,
+	    194,
+	    195,
+	    196,
+	    197,
+	    198,
+	    202,
+	    203,
+	    204,
+	    205,
+	    206,
+	    207,
+	    208,
+	    210,
+	    211,
+	    269,
+	    270,
+	    271,
+	    272,
+	    273,
+	    274,
+	    275,
+	    276,
+	    277,
+	    278,
+	    279,
+	    280,
+	    281,
+	    282,
+	    283,
+	    284,
+	    285,
+	    289,
+	    290,
+	    348];
 
 	/* src\app\pages\Homepage.svelte generated by Svelte v3.1.0 */
 
 	const file$3 = "src\\app\\pages\\Homepage.svelte";
 
-	// (70:0) {:else}
+	// (107:0) {:else}
 	function create_else_block_1(ctx) {
 		var button, t_1, current, dispose;
 
 		var foodcomponent = new FoodComponent({
-			props: { food_objekt: ctx.food },
+			props: {
+			food_nr: ctx.food_nr,
+			onChange: ctx.func
+		},
 			$$inline: true
 		});
+		foodcomponent.$on("save-vote", ctx.saveRelation);
 
 		return {
 			c: function create() {
@@ -1086,7 +1246,7 @@ var app = (function () {
 				foodcomponent.$$.fragment.c();
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$3, 70, 2, 1180);
+				add_location(button, file$3, 107, 2, 2092);
 				dispose = listen(button, "click", ctx.ausloggen);
 			},
 
@@ -1099,7 +1259,7 @@ var app = (function () {
 
 			p: function update(changed, ctx) {
 				var foodcomponent_changes = {};
-				if (changed.food) foodcomponent_changes.food_objekt = ctx.food;
+				if (changed.food_nr) foodcomponent_changes.food_nr = ctx.food_nr;
 				foodcomponent.$set(foodcomponent_changes);
 			},
 
@@ -1128,7 +1288,7 @@ var app = (function () {
 		};
 	}
 
-	// (58:0) {#if !loggedIn}
+	// (95:0) {#if !loggedIn}
 	function create_if_block(ctx) {
 		var current_block_type_index, if_block, t0, button, t1, current, dispose;
 
@@ -1155,7 +1315,7 @@ var app = (function () {
 				t1 = text(ctx.text);
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$3, 67, 2, 1077);
+				add_location(button, file$3, 104, 2, 1989);
 				dispose = listen(button, "click", ctx.btnHandler);
 			},
 
@@ -1219,7 +1379,7 @@ var app = (function () {
 		};
 	}
 
-	// (62:2) {:else}
+	// (99:2) {:else}
 	function create_else_block(ctx) {
 		var current;
 
@@ -1256,7 +1416,7 @@ var app = (function () {
 		};
 	}
 
-	// (59:2) {#if neu}
+	// (96:2) {#if neu}
 	function create_if_block_1(ctx) {
 		var current;
 
@@ -1318,7 +1478,7 @@ var app = (function () {
 				t_1 = space();
 				if_block.c();
 				if_block_anchor = empty();
-				add_location(h1, file$3, 53, 0, 915);
+				add_location(h1, file$3, 90, 0, 1827);
 			},
 
 			l: function claim(nodes) {
@@ -1409,12 +1569,6 @@ var app = (function () {
 	//let loggedIn = false;
 	let loggedIn = localStorage.current_user != null;
 
-	let food = {
-	        food_id: 1,
-	        food_name: "pizza",
-	        category: "gerichte"
-	};
-
 	function einloggen(){
 	  $$invalidate('loggedIn', loggedIn = true);
 	  if (JSON.parse(localStorage.current_user).user_id == 1){
@@ -1428,14 +1582,66 @@ var app = (function () {
 	  localStorage.clear();
 	}
 
+
+	let maxIndex =  foodListe.length;
+	let index = 0;
+
+	let foodRating = {
+	        rating: null,
+	        food: null,
+	        user: null
+
+	    };
+
+	let food = {};
+
+	const saveRelation = (e) => {
+
+	            foodRating.user = JSON.parse(localStorage.current_user); $$invalidate('foodRating', foodRating);
+	            foodRating.food = food; $$invalidate('foodRating', foodRating);
+	            foodRating.rating = e.detail; $$invalidate('foodRating', foodRating);
+
+	            console.log(foodRating);
+	            save(); 
+	            nextFood(); 
+	    };
+
+	    const save = () =>{
+	        axios.post("/food_ratings/" + foodRating.user.user_id + "/"+ foodRating.food.food_id+"/"+foodRating.rating)
+	            .then((response) => {
+	            console.log(response.data);
+	            })
+	            .catch((error) => {
+	                console.log(error);
+	            });
+	    };
+	    let food_nr = foodListe[index];
+
+	    const nextFood = () =>{
+	      if (index < maxIndex){
+	        $$invalidate('index', index = index+1);
+	        $$invalidate('food_nr', food_nr = foodListe[index]);
+	      }
+	      
+	    };
+
+		function func(newFood) {
+			const $$result = food = newFood;
+			$$invalidate('food', food);
+			return $$result;
+		}
+
 		return {
 			neu,
 			text,
 			btnHandler,
 			loggedIn,
-			food,
 			einloggen,
-			ausloggen
+			ausloggen,
+			food,
+			saveRelation,
+			food_nr,
+			func
 		};
 	}
 

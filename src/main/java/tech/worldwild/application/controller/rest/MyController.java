@@ -80,6 +80,18 @@ class MyController {
         
     }
 
+    @GetMapping("/foods/{id}")
+    public ResponseEntity<Food> getFoodByID(@PathVariable("id") Long id) {
+        Optional<Food> f = foodRepository.findById(id);
+
+        if(!f.isEmpty()){
+            return new ResponseEntity<Food>(f.get(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<Food>(HttpStatus.NOT_FOUND);
+        } 
+        
+    }
+
     @GetMapping("/users/name/{name}")
     public ResponseEntity<User> getUserByName(@PathVariable("name") String name) {
         Optional<User> u = userRepository.findByUserName(name);
