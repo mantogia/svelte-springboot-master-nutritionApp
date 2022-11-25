@@ -1226,7 +1226,7 @@ var app = (function () {
 	    66,
 	    916,
 	    277,
-	    1024,
+	    351,
 	    82,
 	    210,
 	    1530,
@@ -1850,41 +1850,47 @@ var app = (function () {
 		return child_ctx;
 	}
 
-	// (25:0) {#each newList as foodRating}
+	// (42:6) {#each newList as foodRating}
 	function create_each_block(ctx) {
-		var div0, t0_value = ctx.foodRating.id, t0, t1, div1, t2_value = ctx.foodRating.food.food_name, t2, t3, div2, t4_value = ctx.foodRating.food.category, t4, t5, div3, t6_value = ctx.foodRating.rating, t6;
+		var tr, th, t0_value = ctx.foodRating.id, t0, t1, td0, t2_value = ctx.foodRating.food.food_name, t2, t3, td1, t4_value = ctx.foodRating.food.category, t4, t5, td2, t6_value = ctx.foodRating.rating, t6, t7;
 
 		return {
 			c: function create() {
-				div0 = element("div");
+				tr = element("tr");
+				th = element("th");
 				t0 = text(t0_value);
 				t1 = space();
-				div1 = element("div");
+				td0 = element("td");
 				t2 = text(t2_value);
 				t3 = space();
-				div2 = element("div");
+				td1 = element("td");
 				t4 = text(t4_value);
 				t5 = space();
-				div3 = element("div");
+				td2 = element("td");
 				t6 = text(t6_value);
-				add_location(div0, file$6, 25, 3, 521);
-				add_location(div1, file$6, 26, 3, 553);
-				add_location(div2, file$6, 27, 3, 597);
-				add_location(div3, file$6, 28, 3, 640);
+				t7 = space();
+				th.scope = "row";
+				add_location(th, file$6, 43, 12, 895);
+				add_location(td0, file$6, 44, 12, 945);
+				add_location(td1, file$6, 45, 12, 996);
+				add_location(td2, file$6, 46, 12, 1046);
+				add_location(tr, file$6, 42, 8, 877);
 			},
 
 			m: function mount(target, anchor) {
-				insert(target, div0, anchor);
-				append(div0, t0);
-				insert(target, t1, anchor);
-				insert(target, div1, anchor);
-				append(div1, t2);
-				insert(target, t3, anchor);
-				insert(target, div2, anchor);
-				append(div2, t4);
-				insert(target, t5, anchor);
-				insert(target, div3, anchor);
-				append(div3, t6);
+				insert(target, tr, anchor);
+				append(tr, th);
+				append(th, t0);
+				append(tr, t1);
+				append(tr, td0);
+				append(td0, t2);
+				append(tr, t3);
+				append(tr, td1);
+				append(td1, t4);
+				append(tr, t5);
+				append(tr, td2);
+				append(td2, t6);
+				append(tr, t7);
 			},
 
 			p: function update(changed, ctx) {
@@ -1907,20 +1913,14 @@ var app = (function () {
 
 			d: function destroy(detaching) {
 				if (detaching) {
-					detach(div0);
-					detach(t1);
-					detach(div1);
-					detach(t3);
-					detach(div2);
-					detach(t5);
-					detach(div3);
+					detach(tr);
 				}
 			}
 		};
 	}
 
 	function create_fragment$6(ctx) {
-		var h1, t_1, each_1_anchor;
+		var h1, t1, table, thead, tr, th0, t3, th1, t5, th2, t7, th3, t9, tbody;
 
 		var each_value = ctx.newList;
 
@@ -1933,15 +1933,42 @@ var app = (function () {
 		return {
 			c: function create() {
 				h1 = element("h1");
-				h1.textContent = "Questions";
-				t_1 = space();
+				h1.textContent = "Ratings";
+				t1 = space();
+				table = element("table");
+				thead = element("thead");
+				tr = element("tr");
+				th0 = element("th");
+				th0.textContent = "#";
+				t3 = space();
+				th1 = element("th");
+				th1.textContent = "Name";
+				t5 = space();
+				th2 = element("th");
+				th2.textContent = "Category";
+				t7 = space();
+				th3 = element("th");
+				th3.textContent = "Rating";
+				t9 = space();
+				tbody = element("tbody");
 
 				for (var i = 0; i < each_blocks.length; i += 1) {
 					each_blocks[i].c();
 				}
-
-				each_1_anchor = empty();
-				add_location(h1, file$6, 22, 0, 463);
+				add_location(h1, file$6, 29, 0, 580);
+				th0.scope = "col";
+				add_location(th0, file$6, 34, 8, 657);
+				th1.scope = "col";
+				add_location(th1, file$6, 35, 8, 689);
+				th2.scope = "col";
+				add_location(th2, file$6, 36, 8, 724);
+				th3.scope = "col";
+				add_location(th3, file$6, 37, 8, 763);
+				add_location(tr, file$6, 33, 6, 643);
+				add_location(thead, file$6, 32, 4, 628);
+				add_location(tbody, file$6, 40, 4, 823);
+				table.className = "table";
+				add_location(table, file$6, 31, 0, 601);
 			},
 
 			l: function claim(nodes) {
@@ -1950,13 +1977,23 @@ var app = (function () {
 
 			m: function mount(target, anchor) {
 				insert(target, h1, anchor);
-				insert(target, t_1, anchor);
+				insert(target, t1, anchor);
+				insert(target, table, anchor);
+				append(table, thead);
+				append(thead, tr);
+				append(tr, th0);
+				append(tr, t3);
+				append(tr, th1);
+				append(tr, t5);
+				append(tr, th2);
+				append(tr, t7);
+				append(tr, th3);
+				append(table, t9);
+				append(table, tbody);
 
 				for (var i = 0; i < each_blocks.length; i += 1) {
-					each_blocks[i].m(target, anchor);
+					each_blocks[i].m(tbody, null);
 				}
-
-				insert(target, each_1_anchor, anchor);
 			},
 
 			p: function update(changed, ctx) {
@@ -1971,7 +2008,7 @@ var app = (function () {
 						} else {
 							each_blocks[i] = create_each_block(child_ctx);
 							each_blocks[i].c();
-							each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+							each_blocks[i].m(tbody, null);
 						}
 					}
 
@@ -1988,14 +2025,11 @@ var app = (function () {
 			d: function destroy(detaching) {
 				if (detaching) {
 					detach(h1);
-					detach(t_1);
+					detach(t1);
+					detach(table);
 				}
 
 				destroy_each(each_blocks, detaching);
-
-				if (detaching) {
-					detach(each_1_anchor);
-				}
 			}
 		};
 	}
@@ -2010,6 +2044,8 @@ var app = (function () {
 	        .then((response) => {
 	            console.log(response.data);
 	            $$invalidate('newList', newList = response.data);
+	            console.log(newList[rating == 0]);
+
 	        })
 	        .catch((error) => {
 	            console.log(error);
@@ -2142,8 +2178,8 @@ var app = (function () {
 
 	const file$8 = "src\\app\\component\\Sidenav.svelte";
 
-	// (26:6) <RouterLink url=''>
-	function create_default_slot_2(ctx) {
+	// (27:6) <RouterLink url=''>
+	function create_default_slot_1(ctx) {
 		var t;
 
 		return {
@@ -2163,28 +2199,7 @@ var app = (function () {
 		};
 	}
 
-	// (29:6) <RouterLink url='asas'>
-	function create_default_slot_1(ctx) {
-		var t;
-
-		return {
-			c: function create() {
-				t = text("WrongPage");
-			},
-
-			m: function mount(target, anchor) {
-				insert(target, t, anchor);
-			},
-
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach(t);
-				}
-			}
-		};
-	}
-
-	// (33:6) <RouterLink url='questions'>
+	// (31:6) <RouterLink url='questions'>
 	function create_default_slot(ctx) {
 		var t;
 
@@ -2206,27 +2221,18 @@ var app = (function () {
 	}
 
 	function create_fragment$8(ctx) {
-		var nav, h1, t1, ul, li0, t2, li1, t3, li2, current;
+		var nav, h1, t1, ul, li0, t2, li1, current;
 
 		var routerlink0 = new RouterLink({
 			props: {
 			url: "",
-			$$slots: { default: [create_default_slot_2] },
-			$$scope: { ctx }
-		},
-			$$inline: true
-		});
-
-		var routerlink1 = new RouterLink({
-			props: {
-			url: "asas",
 			$$slots: { default: [create_default_slot_1] },
 			$$scope: { ctx }
 		},
 			$$inline: true
 		});
 
-		var routerlink2 = new RouterLink({
+		var routerlink1 = new RouterLink({
 			props: {
 			url: "questions",
 			$$slots: { default: [create_default_slot] },
@@ -2247,16 +2253,11 @@ var app = (function () {
 				t2 = space();
 				li1 = element("li");
 				routerlink1.$$.fragment.c();
-				t3 = space();
-				li2 = element("li");
-				routerlink2.$$.fragment.c();
 				add_location(h1, file$8, 22, 2, 305);
 				li0.className = "svelte-z3uaim";
-				add_location(li0, file$8, 24, 4, 333);
+				add_location(li0, file$8, 25, 4, 334);
 				li1.className = "svelte-z3uaim";
-				add_location(li1, file$8, 27, 4, 399);
-				li2.className = "svelte-z3uaim";
-				add_location(li2, file$8, 31, 4, 471);
+				add_location(li1, file$8, 29, 4, 401);
 				ul.className = "svelte-z3uaim";
 				add_location(ul, file$8, 23, 2, 324);
 				nav.className = "svelte-z3uaim";
@@ -2277,9 +2278,6 @@ var app = (function () {
 				append(ul, t2);
 				append(ul, li1);
 				mount_component(routerlink1, li1, null);
-				append(ul, t3);
-				append(ul, li2);
-				mount_component(routerlink2, li2, null);
 				current = true;
 			},
 
@@ -2291,10 +2289,6 @@ var app = (function () {
 				var routerlink1_changes = {};
 				if (changed.$$scope) routerlink1_changes.$$scope = { changed, ctx };
 				routerlink1.$set(routerlink1_changes);
-
-				var routerlink2_changes = {};
-				if (changed.$$scope) routerlink2_changes.$$scope = { changed, ctx };
-				routerlink2.$set(routerlink2_changes);
 			},
 
 			i: function intro(local) {
@@ -2303,15 +2297,12 @@ var app = (function () {
 
 				routerlink1.$$.fragment.i(local);
 
-				routerlink2.$$.fragment.i(local);
-
 				current = true;
 			},
 
 			o: function outro(local) {
 				routerlink0.$$.fragment.o(local);
 				routerlink1.$$.fragment.o(local);
-				routerlink2.$$.fragment.o(local);
 				current = false;
 			},
 
@@ -2323,8 +2314,6 @@ var app = (function () {
 				routerlink0.$destroy();
 
 				routerlink1.$destroy();
-
-				routerlink2.$destroy();
 			}
 		};
 	}
