@@ -66,11 +66,9 @@
 
                 localStorage.current_user = JSON.stringify(response.data);
                 console.log(localStorage.current_user)
-
                 console.log(JSON.parse(localStorage.current_user).user_name)
                 console.log("localStorage gespeichert")
                 dispatch("logIn", response.data)
-
                 
             } else{
 

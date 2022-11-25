@@ -1,19 +1,19 @@
 <script>
+  import { onMount } from 'svelte';
   import FoodComponent from '../component/FoodComponent.svelte';
   import FormComponent from '../component/FormComponent.svelte';
   import LoginComponent from '../component/LoginComponent.svelte';
-  import { onMount } from 'svelte';
-
+  import RouterLink from '../component/RouterLink.svelte';
   import { admin } from '../stores/stores.js';
   import { foodListe } from '../stores/stores.js';
 
-
   let neu = true;
-
   let text = "Account exists"
+  let food = {};
 
   function btnHandler(){
   neu = !neu;
+
   if (neu){
     text = "Login in existing Account"
   }else{
@@ -23,6 +23,23 @@
 
 //let loggedIn = false;
 let loggedIn = localStorage.current_user != null;
+$: loggedIn = localStorage.current_user != null;
+$: loggedIn && adminReset();
+
+function adminReset(){
+  if (!loggedIn){
+    admin.set(False);
+    console.log(loggedIn)
+  }
+}
+
+function switchUrl(){
+  if (loggedIn){
+  const url= "http://localhost:8082/#/questions";
+  window.location = url;
+
+  }
+}
 
 function einloggen(){
   loggedIn = true;
@@ -35,11 +52,19 @@ function ausloggen(){
   console.log("logged out");
   loggedIn = false;
   localStorage.clear();
+  reset();
 }
 
+function reset(){
+
+  window.location.reload();
+
+}
+
+
 function setAdmin() {
+
 	admin.set(true);
-  console.log("test");
 
 }
 
@@ -48,49 +73,45 @@ let maxIndex =  foodListe.length;
 let index = 0;
 
 let foodRating = {
-        rating: null,
-        food: null,
-        user: null
 
-    };
-
-let food = {};
+  rating: null,
+  food: null,
+  user: null
+};
 
 const saveRelation = (e) => {
 
-            foodRating.user = JSON.parse(localStorage.current_user);
-            foodRating.food = food;
-            foodRating.rating = e.detail;
+  foodRating.user = JSON.parse(localStorage.current_user);
+  foodRating.food = food;
+  foodRating.rating = e.detail;
+  save(); 
+  nextFood(); 
 
-            console.log(foodRating);
-            save(); 
-            nextFood(); 
-    }
+}
 
-    const save = () =>{
-        axios.post("/food_ratings/" + foodRating.user.user_id + "/"+ foodRating.food.food_id+"/"+foodRating.rating)
-            .then((response) => {
-            console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
-    let food_nr = foodListe[index];
+const save = () =>{
+    axios.post("/food_ratings/" + foodRating.user.user_id + "/" + foodRating.food.food_id + "/" + foodRating.rating)
+        .then((response) => {
+        console.log(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
-    const nextFood = () =>{
-      if (index < maxIndex){
-        index = index+1;
-        food_nr = foodListe[index];
-      }
+let food_nr = foodListe[index];
+
+const nextFood = () =>{
+  if (index < maxIndex){
+    index = index+1;
+    food_nr = foodListe[index];
+  }
       
-    }
+}
+
 </script>
 
-
 <h1>Home sweet Home</h1>
-
-
 
 {#if !loggedIn}
   {#if neu}

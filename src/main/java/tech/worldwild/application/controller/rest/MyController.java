@@ -1,5 +1,6 @@
 package tech.worldwild.application.controller.rest;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,5 +105,17 @@ class MyController {
         
     }
 
+
+    @GetMapping("/users/{id}/food_ratings")
+    public ResponseEntity<List<Food_Rating>> getFoodRatingsByUserId(@PathVariable("id") long id) {
+        Optional<User> u = userRepository.findById(id);
+
+        if(!u.isEmpty()){
+            return new ResponseEntity<List<Food_Rating>>(u.get().getFood_ratingsObjects(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<List<Food_Rating>>(HttpStatus.NOT_FOUND);
+        } 
+        
+    }
 }
 

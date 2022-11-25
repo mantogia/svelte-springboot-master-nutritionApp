@@ -1,16 +1,17 @@
 <script>
 
     import {onMount} from "svelte";
-
-    export let food_nr;
-    let food = {};
-
-    
-
     import { createEventDispatcher} from "svelte";
 
     const dispatch = createEventDispatcher();
 
+    export let food_nr;
+    $: food_nr && update();
+
+    let food = {};
+    export let onChange
+    $: onChange(food)
+    
     onMount(() => update());
 
     function update(){
@@ -24,7 +25,6 @@
         })
     }
 
-
     const handleVote = (vote) => {
         console.log(vote)
 
@@ -32,19 +32,13 @@
 
     }
 
-    export let onChange
-    $: onChange(food)
-
-    $: food_nr && update();
 </script>
 
 
 <div class="card" style="width: 18rem;">
-    <img src="./images/{food_nr}.jpg" class="card-img-top" alt="hier kommt das Bild hin">
+    <img src="./images/{food_nr}.jpg" class="card-img-top" alt={food.food_name}>
     <div class="card-body">
-        <p class="card-text">
-            {food.food_name}
-        </p>
+
       <button class="btn btn-primary" on:click={() => handleVote(0)}>dislike</button>
       <button class="btn btn-primary" on:click={() => handleVote(1)}>like</button>
       <button class="btn btn-primary" on:click={() => handleVote(2)}>superlike</button>

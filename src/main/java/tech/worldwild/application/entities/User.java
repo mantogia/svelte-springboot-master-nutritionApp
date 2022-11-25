@@ -77,6 +77,11 @@ public class User {
 		return result;
 
     }
+    @JsonIgnore
+    public List<Food_Rating> getFood_ratingsObjects() {
+
+       return food_ratings;
+    }
 
     public void setFood_ratings(List<Food_Rating> food_ratings) {
         this.food_ratings = food_ratings;

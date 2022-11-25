@@ -65,6 +65,12 @@ var app = (function () {
 		node.parentNode.removeChild(node);
 	}
 
+	function destroy_each(iterations, detaching) {
+		for (let i = 0; i < iterations.length; i += 1) {
+			if (iterations[i]) iterations[i].d(detaching);
+		}
+	}
+
 	function element(name) {
 		return document.createElement(name);
 	}
@@ -419,7 +425,7 @@ var app = (function () {
 	const file = "src\\app\\component\\FoodComponent.svelte";
 
 	function create_fragment(ctx) {
-		var div1, img, img_src_value, t0, div0, p, t1_value = ctx.food.food_name, t1, t2, button0, t4, button1, t6, button2, dispose;
+		var div1, img, img_src_value, img_alt_value, t0, div0, button0, t2, button1, t4, button2, dispose;
 
 		return {
 			c: function create() {
@@ -427,34 +433,29 @@ var app = (function () {
 				img = element("img");
 				t0 = space();
 				div0 = element("div");
-				p = element("p");
-				t1 = text(t1_value);
-				t2 = space();
 				button0 = element("button");
 				button0.textContent = "dislike";
-				t4 = space();
+				t2 = space();
 				button1 = element("button");
 				button1.textContent = "like";
-				t6 = space();
+				t4 = space();
 				button2 = element("button");
 				button2.textContent = "superlike";
 				img.src = img_src_value = "./images/" + ctx.food_nr + ".jpg";
 				img.className = "card-img-top svelte-14wmfk2";
-				img.alt = "hier kommt das Bild hin";
-				add_location(img, file, 42, 4, 763);
-				p.className = "card-text svelte-14wmfk2";
-				add_location(p, file, 44, 8, 887);
+				img.alt = img_alt_value = ctx.food.food_name;
+				add_location(img, file, 38, 4, 755);
 				button0.className = "btn btn-primary";
-				add_location(button0, file, 47, 6, 960);
+				add_location(button0, file, 41, 6, 870);
 				button1.className = "btn btn-primary";
-				add_location(button1, file, 48, 6, 1047);
+				add_location(button1, file, 42, 6, 957);
 				button2.className = "btn btn-primary";
-				add_location(button2, file, 49, 6, 1131);
+				add_location(button2, file, 43, 6, 1041);
 				div0.className = "card-body svelte-14wmfk2";
-				add_location(div0, file, 43, 4, 854);
+				add_location(div0, file, 39, 4, 837);
 				div1.className = "card svelte-14wmfk2";
 				set_style(div1, "width", "18rem");
-				add_location(div1, file, 41, 0, 717);
+				add_location(div1, file, 37, 0, 709);
 
 				dispose = [
 					listen(button0, "click", ctx.click_handler),
@@ -472,13 +473,10 @@ var app = (function () {
 				append(div1, img);
 				append(div1, t0);
 				append(div1, div0);
-				append(div0, p);
-				append(p, t1);
-				append(div0, t2);
 				append(div0, button0);
-				append(div0, t4);
+				append(div0, t2);
 				append(div0, button1);
-				append(div0, t6);
+				append(div0, t4);
 				append(div0, button2);
 			},
 
@@ -487,8 +485,8 @@ var app = (function () {
 					img.src = img_src_value;
 				}
 
-				if ((changed.food) && t1_value !== (t1_value = ctx.food.food_name)) {
-					set_data(t1, t1_value);
+				if ((changed.food) && img_alt_value !== (img_alt_value = ctx.food.food_name)) {
+					img.alt = img_alt_value;
 				}
 			},
 
@@ -506,11 +504,15 @@ var app = (function () {
 	}
 
 	function instance($$self, $$props, $$invalidate) {
-		let { food_nr } = $$props;
-	    let food = {};
+		
 
 	    const dispatch = createEventDispatcher();
 
+	    let { food_nr } = $$props;
+
+	    let food = {};
+	    let { onChange } = $$props;
+	    
 	    onMount(() => update());
 
 	    function update(){
@@ -524,15 +526,12 @@ var app = (function () {
 	        });
 	    }
 
-
 	    const handleVote = (vote) => {
 	        console.log(vote);
 
 	        dispatch('save-vote', vote);
 
 	    };
-
-	    let { onChange } = $$props;
 
 		function click_handler() {
 			return handleVote(0);
@@ -551,16 +550,16 @@ var app = (function () {
 			if ('onChange' in $$props) $$invalidate('onChange', onChange = $$props.onChange);
 		};
 
-		$$self.$$.update = ($$dirty = { onChange: 1, food: 1, food_nr: 1 }) => {
-			if ($$dirty.onChange || $$dirty.food) { onChange(food); }
+		$$self.$$.update = ($$dirty = { food_nr: 1, onChange: 1, food: 1 }) => {
 			if ($$dirty.food_nr) { food_nr && update(); }
+			if ($$dirty.onChange || $$dirty.food) { onChange(food); }
 		};
 
 		return {
 			food_nr,
 			food,
-			handleVote,
 			onChange,
+			handleVote,
 			click_handler,
 			click_handler_1,
 			click_handler_2
@@ -899,36 +898,36 @@ var app = (function () {
 				div3 = element("div");
 				button = element("button");
 				t8 = text("Confirm");
-				add_location(h2, file$2, 89, 4, 2066);
+				add_location(h2, file$2, 87, 4, 2062);
 				label0.htmlFor = "usernameInput";
 				label0.className = "form-label";
-				add_location(label0, file$2, 93, 8, 2157);
+				add_location(label0, file$2, 91, 8, 2153);
 				attr(input0, "type", "String");
 				input0.className = "form-control";
 				input0.id = "usernameInput";
 				input0.placeholder = "your username";
-				add_location(input0, file$2, 94, 8, 2229);
+				add_location(input0, file$2, 92, 8, 2225);
 				div0.className = "mb-3";
-				add_location(div0, file$2, 92, 4, 2129);
+				add_location(div0, file$2, 90, 4, 2125);
 				label1.htmlFor = "inputPassword";
 				label1.className = "col-sm-2 col-form-label";
-				add_location(label1, file$2, 97, 8, 2422);
+				add_location(label1, file$2, 95, 8, 2418);
 				attr(input1, "type", "password");
 				input1.className = "form-control";
 				input1.id = "inputPassword";
-				add_location(input1, file$2, 99, 10, 2542);
+				add_location(input1, file$2, 97, 10, 2538);
 				div1.className = "col-sm-10";
-				add_location(div1, file$2, 98, 8, 2507);
+				add_location(div1, file$2, 96, 8, 2503);
 				div2.className = "mb-3 row";
-				add_location(div2, file$2, 96, 4, 2390);
+				add_location(div2, file$2, 94, 4, 2386);
 				button.disabled = ctx.disabled;
 				button.type = "button";
 				button.className = "btn btn-primary mb-3";
-				add_location(button, file$2, 103, 8, 2733);
+				add_location(button, file$2, 101, 8, 2729);
 				div3.className = "col-auto";
-				add_location(div3, file$2, 102, 6, 2701);
+				add_location(div3, file$2, 100, 6, 2697);
 				form.className = "row g-3";
-				add_location(form, file$2, 91, 4, 2101);
+				add_location(form, file$2, 89, 4, 2097);
 
 				dispose = [
 					listen(input0, "input", ctx.input0_input_handler),
@@ -1059,11 +1058,9 @@ var app = (function () {
 
 	                localStorage.current_user = JSON.stringify(response.data);
 	                console.log(localStorage.current_user);
-
 	                console.log(JSON.parse(localStorage.current_user).user_name);
 	                console.log("localStorage gespeichert");
 	                dispatch("logIn", response.data);
-
 	                
 	            } else{
 
@@ -1105,6 +1102,107 @@ var app = (function () {
 		}
 	}
 
+	/* src\app\component\RouterLink.svelte generated by Svelte v3.1.0 */
+
+	const file$3 = "src\\app\\component\\RouterLink.svelte";
+
+	function create_fragment$3(ctx) {
+		var a, a_href_value, current;
+
+		const default_slot_1 = ctx.$$slots.default;
+		const default_slot = create_slot(default_slot_1, ctx, null);
+
+		return {
+			c: function create() {
+				a = element("a");
+
+				if (default_slot) default_slot.c();
+
+				a.href = a_href_value = "#/" + ctx.url;
+				a.className = "svelte-1b10eml";
+				add_location(a, file$3, 10, 0, 102);
+			},
+
+			l: function claim(nodes) {
+				if (default_slot) default_slot.l(a_nodes);
+				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, a, anchor);
+
+				if (default_slot) {
+					default_slot.m(a, null);
+				}
+
+				current = true;
+			},
+
+			p: function update(changed, ctx) {
+				if (default_slot && default_slot.p && changed.$$scope) {
+					default_slot.p(get_slot_changes(default_slot_1, ctx, changed,), get_slot_context(default_slot_1, ctx, null));
+				}
+
+				if ((!current || changed.url) && a_href_value !== (a_href_value = "#/" + ctx.url)) {
+					a.href = a_href_value;
+				}
+			},
+
+			i: function intro(local) {
+				if (current) return;
+				if (default_slot && default_slot.i) default_slot.i(local);
+				current = true;
+			},
+
+			o: function outro(local) {
+				if (default_slot && default_slot.o) default_slot.o(local);
+				current = false;
+			},
+
+			d: function destroy(detaching) {
+				if (detaching) {
+					detach(a);
+				}
+
+				if (default_slot) default_slot.d(detaching);
+			}
+		};
+	}
+
+	function instance$3($$self, $$props, $$invalidate) {
+		let { url } = $$props;
+
+		let { $$slots = {}, $$scope } = $$props;
+
+		$$self.$set = $$props => {
+			if ('url' in $$props) $$invalidate('url', url = $$props.url);
+			if ('$$scope' in $$props) $$invalidate('$$scope', $$scope = $$props.$$scope);
+		};
+
+		return { url, $$slots, $$scope };
+	}
+
+	class RouterLink extends SvelteComponentDev {
+		constructor(options) {
+			super(options);
+			init(this, options, instance$3, create_fragment$3, safe_not_equal, ["url"]);
+
+			const { ctx } = this.$$;
+			const props = options.props || {};
+			if (ctx.url === undefined && !('url' in props)) {
+				console.warn("<RouterLink> was created without expected prop 'url'");
+			}
+		}
+
+		get url() {
+			throw new Error("<RouterLink>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		}
+
+		set url(value) {
+			throw new Error("<RouterLink>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+		}
+	}
+
 	let control;
 	try{
 
@@ -1120,112 +1218,131 @@ var app = (function () {
 
 
 	const foodListe = [
-	    1,
-	    2,
-	    3,
-	    4,
-	    5,
-	    6,
-	    7,
-	    8,
-	    9,
-	    10,
-	    11,
-	    12,
-	    13,
-	    14,
-	    15,
-	    16,
-	    17,
-	    18,
-	    19,
-	    20,
-	    22,
-	    24,
-	    26,
-	    28,
-	    29,
-	    30,
-	    32,
-	    34,
-	    35,
-	    36,
-	    37,
-	    38,
-	    39,
-	    40,
-	    41,
-	    42,
-	    43,
-	    47,
-	    49,
-	    50,
-	    51,
-	    52,
-	    53,
-	    54,
-	    55,
-	    56,
-	    57,
-	    58,
-	    59,
-	    60,
-	    61,
-	    62,
-	    63,
-	    64,
-	    65,
-	    66,
-	    67,
-	    68,
-	    69,
-	    70,
-	    71,
-	    72,
-	    82,
-	    99,
-	    191,
-	    193,
-	    194,
-	    195,
-	    196,
-	    197,
-	    198,
-	    202,
-	    203,
-	    204,
-	    205,
-	    206,
 	    207,
 	    208,
-	    210,
-	    211,
-	    269,
-	    270,
-	    271,
-	    272,
-	    273,
-	    274,
-	    275,
-	    276,
+	    34,
+	    205,
+	    38,
+	    66,
+	    916,
 	    277,
-	    278,
-	    279,
-	    280,
-	    281,
-	    282,
-	    283,
+	    1024,
+	    82,
+	    210,
+	    1530,
 	    284,
-	    285,
+	    591,
+	    198,
+	    274,
+	    13440,
+	    191,
+	    14060,
+	    924,
+	    1518,
+	    193,
+	    47,
+	    355,
+	    505,
+	    13463,
+	    194,
+	    950,
+	    13880,
+	    1187,
+	    10477,
+	    14056,
+	    372,
+	    13384,
+	    276,
+	    41,
+	    37,
+	    551,
+	    14074,
 	    289,
+	    211,
+	    43,
+	    65,
+	    14092,
+	    13884,
+	    395,
+	    1572,
+	    71,
+	    278,
+	    433,
+	    42,
+	    269,
+	    915,
+	    13389,
+	    275,
+	    204,
+	    280,
+	    576,
+	    1590,
+	    14038,
+	    39,
+	    13391,
+	    532,
+	    13464,
+	    67,
+	    1183,
+	    14090,
+	    206,
+	    68,
+	    69,
+	    51,
 	    290,
-	    348];
+	    72,
+	    1169,
+	    14024,
+	    282,
+	    917,
+	    12982,
+	    283,
+	    929,
+	    1675,
+	    413,
+	    281,
+	    14093,
+	    14055,
+	    285,
+	    1665,
+	    1602,
+	    40,
+	    568,
+	    368,
+	    36,
+	    70,
+	    14078,
+	    14088,
+	    605,
+	    1497,
+	    1579,
+	    13394,
+	    14035,
+	    35,
+	    10406,
+	    13400,
+	    279,
+	    14094,
+	    553,
+	    60,
+	    1127,
+	    1568,
+	    1585,
+	    424,
+	    203,
+	    1020,
+	    14061,
+	    1022,
+	    404,
+	    10532,
+	    13349
+	];
 
 	/* src\app\pages\Homepage.svelte generated by Svelte v3.1.0 */
 
-	const file$3 = "src\\app\\pages\\Homepage.svelte";
+	const file$4 = "src\\app\\pages\\Homepage.svelte";
 
-	// (107:0) {:else}
+	// (128:0) {:else}
 	function create_else_block_1(ctx) {
 		var button, t_1, current, dispose;
 
@@ -1246,7 +1363,7 @@ var app = (function () {
 				foodcomponent.$$.fragment.c();
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$3, 107, 2, 2092);
+				add_location(button, file$4, 128, 2, 2314);
 				dispose = listen(button, "click", ctx.ausloggen);
 			},
 
@@ -1288,7 +1405,7 @@ var app = (function () {
 		};
 	}
 
-	// (95:0) {#if !loggedIn}
+	// (116:0) {#if !loggedIn}
 	function create_if_block(ctx) {
 		var current_block_type_index, if_block, t0, button, t1, current, dispose;
 
@@ -1315,7 +1432,7 @@ var app = (function () {
 				t1 = text(ctx.text);
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$3, 104, 2, 1989);
+				add_location(button, file$4, 125, 2, 2211);
 				dispose = listen(button, "click", ctx.btnHandler);
 			},
 
@@ -1379,7 +1496,7 @@ var app = (function () {
 		};
 	}
 
-	// (99:2) {:else}
+	// (120:2) {:else}
 	function create_else_block(ctx) {
 		var current;
 
@@ -1416,7 +1533,7 @@ var app = (function () {
 		};
 	}
 
-	// (96:2) {#if neu}
+	// (117:2) {#if neu}
 	function create_if_block_1(ctx) {
 		var current;
 
@@ -1453,7 +1570,7 @@ var app = (function () {
 		};
 	}
 
-	function create_fragment$3(ctx) {
+	function create_fragment$4(ctx) {
 		var h1, t_1, current_block_type_index, if_block, if_block_anchor, current;
 
 		var if_block_creators = [
@@ -1478,7 +1595,7 @@ var app = (function () {
 				t_1 = space();
 				if_block.c();
 				if_block_anchor = empty();
-				add_location(h1, file$3, 90, 0, 1827);
+				add_location(h1, file$4, 113, 0, 2051);
 			},
 
 			l: function claim(nodes) {
@@ -1543,22 +1660,28 @@ var app = (function () {
 		};
 	}
 
-	function setAdmin() {
-		admin.set(true);
-	console.log("test");
+	function reset(){
+
+	window.location.reload();
 
 	}
 
-	function instance$3($$self, $$props, $$invalidate) {
+	function setAdmin() {
+
+		admin.set(true);
+
+	}
+
+	function instance$4($$self, $$props, $$invalidate) {
 		
 
-
 	  let neu = true;
-
 	  let text = "Account exists";
+	  let food = {};
 
 	  function btnHandler(){
 	  $$invalidate('neu', neu = !neu);
+
 	  if (neu){
 	    $$invalidate('text', text = "Login in existing Account");
 	  }else{
@@ -1568,6 +1691,13 @@ var app = (function () {
 
 	//let loggedIn = false;
 	let loggedIn = localStorage.current_user != null;
+
+	function adminReset(){
+	  if (!loggedIn){
+	    admin.set(False);
+	    console.log(loggedIn);
+	  }
+	}
 
 	function einloggen(){
 	  $$invalidate('loggedIn', loggedIn = true);
@@ -1580,6 +1710,7 @@ var app = (function () {
 	  console.log("logged out");
 	  $$invalidate('loggedIn', loggedIn = false);
 	  localStorage.clear();
+	  reset();
 	}
 
 
@@ -1587,43 +1718,41 @@ var app = (function () {
 	let index = 0;
 
 	let foodRating = {
-	        rating: null,
-	        food: null,
-	        user: null
 
-	    };
-
-	let food = {};
+	  rating: null,
+	  food: null,
+	  user: null
+	};
 
 	const saveRelation = (e) => {
 
-	            foodRating.user = JSON.parse(localStorage.current_user); $$invalidate('foodRating', foodRating);
-	            foodRating.food = food; $$invalidate('foodRating', foodRating);
-	            foodRating.rating = e.detail; $$invalidate('foodRating', foodRating);
+	  foodRating.user = JSON.parse(localStorage.current_user); $$invalidate('foodRating', foodRating);
+	  foodRating.food = food; $$invalidate('foodRating', foodRating);
+	  foodRating.rating = e.detail; $$invalidate('foodRating', foodRating);
+	  save(); 
+	  nextFood(); 
 
-	            console.log(foodRating);
-	            save(); 
-	            nextFood(); 
-	    };
+	};
 
-	    const save = () =>{
-	        axios.post("/food_ratings/" + foodRating.user.user_id + "/"+ foodRating.food.food_id+"/"+foodRating.rating)
-	            .then((response) => {
-	            console.log(response.data);
-	            })
-	            .catch((error) => {
-	                console.log(error);
-	            });
-	    };
-	    let food_nr = foodListe[index];
+	const save = () =>{
+	    axios.post("/food_ratings/" + foodRating.user.user_id + "/" + foodRating.food.food_id + "/" + foodRating.rating)
+	        .then((response) => {
+	        console.log(response.data);
+	        })
+	        .catch((error) => {
+	            console.log(error);
+	        });
+	};
 
-	    const nextFood = () =>{
-	      if (index < maxIndex){
-	        $$invalidate('index', index = index+1);
-	        $$invalidate('food_nr', food_nr = foodListe[index]);
-	      }
+	let food_nr = foodListe[index];
+
+	const nextFood = () =>{
+	  if (index < maxIndex){
+	    $$invalidate('index', index = index+1);
+	    $$invalidate('food_nr', food_nr = foodListe[index]);
+	  }
 	      
-	    };
+	};
 
 		function func(newFood) {
 			const $$result = food = newFood;
@@ -1631,14 +1760,20 @@ var app = (function () {
 			return $$result;
 		}
 
+		$$self.$$.update = ($$dirty = { loggedIn: 1 }) => {
+			if ($$dirty.loggedIn) { loggedIn && adminReset(); }
+		};
+
+		$$invalidate('loggedIn', loggedIn = localStorage.current_user != null);
+
 		return {
 			neu,
 			text,
+			food,
 			btnHandler,
 			loggedIn,
 			einloggen,
 			ausloggen,
-			food,
 			saveRelation,
 			food_nr,
 			func
@@ -1648,22 +1783,22 @@ var app = (function () {
 	class Homepage extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$3, create_fragment$3, safe_not_equal, []);
+			init(this, options, instance$4, create_fragment$4, safe_not_equal, []);
 		}
 	}
 
 	/* src\app\pages\Notfound.svelte generated by Svelte v3.1.0 */
 
-	const file$4 = "src\\app\\pages\\Notfound.svelte";
+	const file$5 = "src\\app\\pages\\Notfound.svelte";
 
-	function create_fragment$4(ctx) {
+	function create_fragment$5(ctx) {
 		var h1;
 
 		return {
 			c: function create() {
 				h1 = element("h1");
 				h1.textContent = "Wrong way, go back.";
-				add_location(h1, file$4, 12, 0, 184);
+				add_location(h1, file$5, 12, 0, 184);
 			},
 
 			l: function claim(nodes) {
@@ -1686,7 +1821,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$4($$self) {
+	function instance$5($$self) {
 		axios.get('/patients')
 	    .then((response) => {
 	        console.log(response.data);
@@ -1701,43 +1836,112 @@ var app = (function () {
 	class Notfound extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$4, create_fragment$4, safe_not_equal, []);
+			init(this, options, instance$5, create_fragment$5, safe_not_equal, []);
 		}
 	}
 
 	/* src\app\pages\Questionspage.svelte generated by Svelte v3.1.0 */
 
-	const file$5 = "src\\app\\pages\\Questionspage.svelte";
+	const file$6 = "src\\app\\pages\\Questionspage.svelte";
 
-	// (69:0) <FoodComponent food_objekt={food} on:save-vote={saveRelation}>
-	function create_default_slot(ctx) {
+	function get_each_context(ctx, list, i) {
+		const child_ctx = Object.create(ctx);
+		child_ctx.foodRating = list[i];
+		return child_ctx;
+	}
+
+	// (25:0) {#each newList as foodRating}
+	function create_each_block(ctx) {
+		var div0, t0_value = ctx.foodRating.id, t0, t1, div1, t2_value = ctx.foodRating.food.food_name, t2, t3, div2, t4_value = ctx.foodRating.food.category, t4, t5, div3, t6_value = ctx.foodRating.rating, t6;
+
 		return {
-			c: noop,
-			m: noop,
-			d: noop
+			c: function create() {
+				div0 = element("div");
+				t0 = text(t0_value);
+				t1 = space();
+				div1 = element("div");
+				t2 = text(t2_value);
+				t3 = space();
+				div2 = element("div");
+				t4 = text(t4_value);
+				t5 = space();
+				div3 = element("div");
+				t6 = text(t6_value);
+				add_location(div0, file$6, 25, 3, 521);
+				add_location(div1, file$6, 26, 3, 553);
+				add_location(div2, file$6, 27, 3, 597);
+				add_location(div3, file$6, 28, 3, 640);
+			},
+
+			m: function mount(target, anchor) {
+				insert(target, div0, anchor);
+				append(div0, t0);
+				insert(target, t1, anchor);
+				insert(target, div1, anchor);
+				append(div1, t2);
+				insert(target, t3, anchor);
+				insert(target, div2, anchor);
+				append(div2, t4);
+				insert(target, t5, anchor);
+				insert(target, div3, anchor);
+				append(div3, t6);
+			},
+
+			p: function update(changed, ctx) {
+				if ((changed.newList) && t0_value !== (t0_value = ctx.foodRating.id)) {
+					set_data(t0, t0_value);
+				}
+
+				if ((changed.newList) && t2_value !== (t2_value = ctx.foodRating.food.food_name)) {
+					set_data(t2, t2_value);
+				}
+
+				if ((changed.newList) && t4_value !== (t4_value = ctx.foodRating.food.category)) {
+					set_data(t4, t4_value);
+				}
+
+				if ((changed.newList) && t6_value !== (t6_value = ctx.foodRating.rating)) {
+					set_data(t6, t6_value);
+				}
+			},
+
+			d: function destroy(detaching) {
+				if (detaching) {
+					detach(div0);
+					detach(t1);
+					detach(div1);
+					detach(t3);
+					detach(div2);
+					detach(t5);
+					detach(div3);
+				}
+			}
 		};
 	}
 
-	function create_fragment$5(ctx) {
-		var h1, t_1, current;
+	function create_fragment$6(ctx) {
+		var h1, t_1, each_1_anchor;
 
-		var foodcomponent = new FoodComponent({
-			props: {
-			food_objekt: ctx.food,
-			$$slots: { default: [create_default_slot] },
-			$$scope: { ctx }
-		},
-			$$inline: true
-		});
-		foodcomponent.$on("save-vote", ctx.saveRelation);
+		var each_value = ctx.newList;
+
+		var each_blocks = [];
+
+		for (var i = 0; i < each_value.length; i += 1) {
+			each_blocks[i] = create_each_block(get_each_context(ctx, each_value, i));
+		}
 
 		return {
 			c: function create() {
 				h1 = element("h1");
 				h1.textContent = "Questions";
 				t_1 = space();
-				foodcomponent.$$.fragment.c();
-				add_location(h1, file$5, 66, 0, 1393);
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].c();
+				}
+
+				each_1_anchor = empty();
+				add_location(h1, file$6, 22, 0, 463);
 			},
 
 			l: function claim(nodes) {
@@ -1747,28 +1951,39 @@ var app = (function () {
 			m: function mount(target, anchor) {
 				insert(target, h1, anchor);
 				insert(target, t_1, anchor);
-				mount_component(foodcomponent, target, anchor);
-				current = true;
+
+				for (var i = 0; i < each_blocks.length; i += 1) {
+					each_blocks[i].m(target, anchor);
+				}
+
+				insert(target, each_1_anchor, anchor);
 			},
 
 			p: function update(changed, ctx) {
-				var foodcomponent_changes = {};
-				if (changed.food) foodcomponent_changes.food_objekt = ctx.food;
-				if (changed.$$scope) foodcomponent_changes.$$scope = { changed, ctx };
-				foodcomponent.$set(foodcomponent_changes);
+				if (changed.newList) {
+					each_value = ctx.newList;
+
+					for (var i = 0; i < each_value.length; i += 1) {
+						const child_ctx = get_each_context(ctx, each_value, i);
+
+						if (each_blocks[i]) {
+							each_blocks[i].p(changed, child_ctx);
+						} else {
+							each_blocks[i] = create_each_block(child_ctx);
+							each_blocks[i].c();
+							each_blocks[i].m(each_1_anchor.parentNode, each_1_anchor);
+						}
+					}
+
+					for (; i < each_blocks.length; i += 1) {
+						each_blocks[i].d(1);
+					}
+					each_blocks.length = each_value.length;
+				}
 			},
 
-			i: function intro(local) {
-				if (current) return;
-				foodcomponent.$$.fragment.i(local);
-
-				current = true;
-			},
-
-			o: function outro(local) {
-				foodcomponent.$$.fragment.o(local);
-				current = false;
-			},
+			i: noop,
+			o: noop,
 
 			d: function destroy(detaching) {
 				if (detaching) {
@@ -1776,89 +1991,45 @@ var app = (function () {
 					detach(t_1);
 				}
 
-				foodcomponent.$destroy(detaching);
+				destroy_each(each_blocks, detaching);
+
+				if (detaching) {
+					detach(each_1_anchor);
+				}
 			}
 		};
 	}
 
 	let user_id = 1;
 
-	function instance$5($$self, $$props, $$invalidate) {
-		
+	function instance$6($$self, $$props, $$invalidate) {
 
-	    let user = {
+	    let newList = [];
 
-	        user_id: 0,
-	        user_name: "",
-	        user_email: "",
-	        user_password: "",
-	        food_ratings: []
-
-	    };
-
-
-	    let food = {
-	        food_id: 1,
-	        food_name: "pizza",
-	        category: "gerichte"
-	    };
-
-	    let foodRating = {
-	        rating: 0,
-	        food: 0,
-	        user: 0
-
-	    };
-
-	    const saveRelation = (e) => {
-	        
-	       
-	        const newVote = e.detail;
-	        axios.get("/users/" + user_id)
-
-	            .then((response) => {
+	    axios.get("/users/" + user_id + "/food_ratings")
+	        .then((response) => {
 	            console.log(response.data);
-	            $$invalidate('user', user = response.data);
-	            if(user.user_id = user_id){
+	            $$invalidate('newList', newList = response.data);
+	        })
+	        .catch((error) => {
+	            console.log(error);
+	        });
 
-	            foodRating.user = user; $$invalidate('user', user); $$invalidate('foodRating', foodRating);
-	            foodRating.food = food; $$invalidate('foodRating', foodRating);
-	            foodRating.rating = newVote; $$invalidate('foodRating', foodRating);
-
-	            console.log(foodRating);
-	            save();
-	            }
-	            })
-	            .catch((error) => {
-	                        console.log(error);
-	            });
-	    };
-
-	    const save = () =>{
-	        axios.post("/food_ratings/"+ foodRating.user.user_id+"/"+foodRating.food.food_id+"/"+foodRating.rating)
-	            .then((response) => {
-	            console.log(response.data);
-	            })
-	            .catch((error) => {
-	                console.log(error);
-	            });
-	    };
-
-		return { food, saveRelation };
+		return { newList };
 	}
 
 	class Questionspage extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$5, create_fragment$5, safe_not_equal, []);
+			init(this, options, instance$6, create_fragment$6, safe_not_equal, []);
 		}
 	}
 
 	/* src\app\routing\Router.svelte generated by Svelte v3.1.0 */
 
-	const file$6 = "src\\app\\routing\\Router.svelte";
+	const file$7 = "src\\app\\routing\\Router.svelte";
 
-	function create_fragment$6(ctx) {
+	function create_fragment$7(ctx) {
 		var main, current;
 
 		var switch_value = ctx.value;
@@ -1876,7 +2047,7 @@ var app = (function () {
 				main = element("main");
 				if (switch_instance) switch_instance.$$.fragment.c();
 				main.className = "svelte-1arjn8m";
-				add_location(main, file$6, 31, 0, 631);
+				add_location(main, file$7, 31, 0, 631);
 			},
 
 			l: function claim(nodes) {
@@ -1939,7 +2110,7 @@ var app = (function () {
 		};
 	}
 
-	function instance$6($$self, $$props, $$invalidate) {
+	function instance$7($$self, $$props, $$invalidate) {
 		
 
 	  let value = Notfound;
@@ -1963,108 +2134,7 @@ var app = (function () {
 	class Router extends SvelteComponentDev {
 		constructor(options) {
 			super(options);
-			init(this, options, instance$6, create_fragment$6, safe_not_equal, []);
-		}
-	}
-
-	/* src\app\component\RouterLink.svelte generated by Svelte v3.1.0 */
-
-	const file$7 = "src\\app\\component\\RouterLink.svelte";
-
-	function create_fragment$7(ctx) {
-		var a, a_href_value, current;
-
-		const default_slot_1 = ctx.$$slots.default;
-		const default_slot = create_slot(default_slot_1, ctx, null);
-
-		return {
-			c: function create() {
-				a = element("a");
-
-				if (default_slot) default_slot.c();
-
-				a.href = a_href_value = "#/" + ctx.url;
-				a.className = "svelte-1b10eml";
-				add_location(a, file$7, 10, 0, 102);
-			},
-
-			l: function claim(nodes) {
-				if (default_slot) default_slot.l(a_nodes);
-				throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
-			},
-
-			m: function mount(target, anchor) {
-				insert(target, a, anchor);
-
-				if (default_slot) {
-					default_slot.m(a, null);
-				}
-
-				current = true;
-			},
-
-			p: function update(changed, ctx) {
-				if (default_slot && default_slot.p && changed.$$scope) {
-					default_slot.p(get_slot_changes(default_slot_1, ctx, changed,), get_slot_context(default_slot_1, ctx, null));
-				}
-
-				if ((!current || changed.url) && a_href_value !== (a_href_value = "#/" + ctx.url)) {
-					a.href = a_href_value;
-				}
-			},
-
-			i: function intro(local) {
-				if (current) return;
-				if (default_slot && default_slot.i) default_slot.i(local);
-				current = true;
-			},
-
-			o: function outro(local) {
-				if (default_slot && default_slot.o) default_slot.o(local);
-				current = false;
-			},
-
-			d: function destroy(detaching) {
-				if (detaching) {
-					detach(a);
-				}
-
-				if (default_slot) default_slot.d(detaching);
-			}
-		};
-	}
-
-	function instance$7($$self, $$props, $$invalidate) {
-		let { url } = $$props;
-
-		let { $$slots = {}, $$scope } = $$props;
-
-		$$self.$set = $$props => {
-			if ('url' in $$props) $$invalidate('url', url = $$props.url);
-			if ('$$scope' in $$props) $$invalidate('$$scope', $$scope = $$props.$$scope);
-		};
-
-		return { url, $$slots, $$scope };
-	}
-
-	class RouterLink extends SvelteComponentDev {
-		constructor(options) {
-			super(options);
-			init(this, options, instance$7, create_fragment$7, safe_not_equal, ["url"]);
-
-			const { ctx } = this.$$;
-			const props = options.props || {};
-			if (ctx.url === undefined && !('url' in props)) {
-				console.warn("<RouterLink> was created without expected prop 'url'");
-			}
-		}
-
-		get url() {
-			throw new Error("<RouterLink>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-		}
-
-		set url(value) {
-			throw new Error("<RouterLink>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+			init(this, options, instance$7, create_fragment$7, safe_not_equal, []);
 		}
 	}
 
@@ -2115,7 +2185,7 @@ var app = (function () {
 	}
 
 	// (33:6) <RouterLink url='questions'>
-	function create_default_slot$1(ctx) {
+	function create_default_slot(ctx) {
 		var t;
 
 		return {
@@ -2159,7 +2229,7 @@ var app = (function () {
 		var routerlink2 = new RouterLink({
 			props: {
 			url: "questions",
-			$$slots: { default: [create_default_slot$1] },
+			$$slots: { default: [create_default_slot] },
 			$$scope: { ctx }
 		},
 			$$inline: true

@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Food_Rating {
 
@@ -49,7 +51,7 @@ public class Food_Rating {
         this.id = id;
     }
 
-
+    @JsonIgnore
     public User getUser() {
         return user;
     }
@@ -59,7 +61,7 @@ public class Food_Rating {
         this.user = user;
     }
 
-
+    
     public Food getFood() {
         return food;
     }
