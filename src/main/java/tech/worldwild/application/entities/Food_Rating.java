@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 public class Food_Rating {
@@ -64,6 +65,13 @@ public class Food_Rating {
     
     public Food getFood() {
         return food;
+    }
+
+    @JsonProperty("main_category")
+    public String getFoodCategory() {
+
+        String result = food.getCategory();
+        return result;
     }
 
 

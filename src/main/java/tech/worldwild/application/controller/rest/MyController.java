@@ -1,5 +1,6 @@
 package tech.worldwild.application.controller.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -106,6 +107,18 @@ class MyController {
     }
 
 
+    /*@GetMapping("/users/{id}/food_ratings")
+    public ResponseEntity<List<Food_Rating>> getFoodRatingsByUserId(@PathVariable("id") long id) {
+        Optional<User> u = userRepository.findById(id);
+
+        if(!u.isEmpty()){
+            return new ResponseEntity<List<Food_Rating>>(u.get().getFood_ratingsObjects(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<List<Food_Rating>>(HttpStatus.NOT_FOUND);
+        } 
+        
+    }*/
+
     @GetMapping("/users/{id}/food_ratings")
     public ResponseEntity<List<Food_Rating>> getFoodRatingsByUserId(@PathVariable("id") long id) {
         Optional<User> u = userRepository.findById(id);
@@ -117,5 +130,43 @@ class MyController {
         } 
         
     }
+
+    @GetMapping("/food_ratings/users/{id}")
+    public ResponseEntity<List<Food_Rating>> findRatingsFromUser(@PathVariable("id") long id) {
+        Optional<List<Food_Rating>> fr_list = foodRatingRepository.findRatingsFromUser(id);
+
+        if(!fr_list.isEmpty()){
+            return new ResponseEntity<List<Food_Rating>>(fr_list.get(), HttpStatus.OK);
+        }else{
+            return new ResponseEntity<List<Food_Rating>>(HttpStatus.NOT_FOUND);
+        } 
+        
+    }
+
+    /*@GetMapping("/food_ratings/users/{id}/string")
+    public List findRatingsFromUserString(@PathVariable("id") long id) {
+        Optional<List> fr_list = foodRatingRepository.findRatingsFromUserString(id);
+
+        if(!fr_list.isEmpty()){
+            return fr_list.get();
+        }else{
+            return new ArrayList<>();
+        } 
+        
+    }*/
+
+    @GetMapping("/food_ratings/users/{id}/string")
+    public List findRatingsFromUserString(@PathVariable("id") long id) {
+        Optional<List> fr_list = foodRatingRepository.getEvaluation(id);
+
+        if(!fr_list.isEmpty()){
+            return fr_list.get();
+        }else{
+            return new ArrayList<>();
+        } 
+        
+    }
+
+
 }
 

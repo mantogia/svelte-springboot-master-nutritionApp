@@ -15,8 +15,17 @@ catch{
 
 export const admin = writable(control);
 
-
 export const foodListe = [
+    207,
+    208,
+    34,
+    205,
+    38,
+    66,
+    916
+]
+
+export const foodListe1 = [
     207,
     208,
     34,
@@ -160,3 +169,7 @@ export const kategorienListe = [
     "Verschiedenes"
 ]
 
+
+export function resetPage() {
+    window.location.reload();
+}

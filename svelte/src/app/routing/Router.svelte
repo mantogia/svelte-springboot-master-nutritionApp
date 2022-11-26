@@ -3,6 +3,7 @@
   import Homepage from '../pages/Homepage.svelte';
   import Notfound from '../pages/Notfound.svelte';
   import Questionspage from '../pages/Questionspage.svelte';
+  import Evaluationpage from '../pages/Evaluationpage.svelte';
 
   let value = Notfound;
 
@@ -13,6 +14,9 @@
         break;
         case 'questions':
         value = Questionspage;
+        break;
+        case 'evaluation':
+        value = Evaluationpage;
         break;
       default:
         value = Notfound;

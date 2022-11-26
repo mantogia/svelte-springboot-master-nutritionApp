@@ -31,5 +31,9 @@
       <RouterLink url='questions'>Survey</RouterLink>
     </li>
 
+    <li>
+      <RouterLink url='evaluation'>Evaluation</RouterLink>
+    </li>
+
   </ul>
 </nav>

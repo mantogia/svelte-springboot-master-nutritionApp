@@ -17,7 +17,7 @@
     function update(){
         axios.get("/foods/" + food_nr)
         .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             food = response.data;
         })
         .catch((error) => {
@@ -36,7 +36,7 @@
 
 
 <div class="card" style="width: 18rem;">
-    <img src="./images/{food_nr}.jpg" class="card-img-top" alt={food.food_name}>
+    <img src="./images/{food_nr}.jpg" class="card-img-top" alt="Hier kommt das Bild hin">
     <div class="card-body">
 
       <button class="btn btn-primary" on:click={() => handleVote(0)}>dislike</button>

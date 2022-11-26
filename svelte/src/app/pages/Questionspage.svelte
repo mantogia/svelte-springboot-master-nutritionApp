@@ -1,52 +1,93 @@
 <script>
-    import FoodComponent from "../component/FoodComponent.svelte";
 
-    let user_id = 1;
-    let user = {}
-    let food = {}
-    let foodRating = {}
+  import { onMount } from 'svelte';
+  import EndComponent from '../component/EndComponent.svelte';
+  import FoodComponent from '../component/FoodComponent.svelte';
+  import { admin } from '../stores/stores.js';
+  import { foodListe } from '../stores/stores.js';
+  import {resetPage} from '../stores/stores.js';
 
-    let newList = [];
+  let endOfList = false;
+  let maxIndex =  foodListe.length -1;
+  let index = -1;
+  let food = {};
+  let food_nr = foodListe[0];
+  let user = JSON.parse(localStorage.current_user);
+  let foodRating = {
 
-    axios.get("/users/" + user_id + "/food_ratings")
+    rating: null,
+    food: null,
+    user: null
+
+  };
+
+  let newList = [];
+
+  let promise = getInformation();
+
+
+  async function  getInformation(){
+    axios.get("/users/" + user.user_id + "/food_ratings")
         .then((response) => {
-            console.log(response.data);
             newList = response.data;
-            console.log(newList[rating == 0])
-
-            const schowiedereineliste = []
-
+            console.log(newList);
+            if (newList.length >= (maxIndex + 1)){
+              endOfList = true;
+            }else{
+              endOfList = false;
+              index = newList.length - 1;
+              nextFood(); 
+              
+            }    
+            return "1";
         })
         .catch((error) => {
             console.log(error);
+            return "0";
         })
-    
-        
-    
-    
+
+  };
+
+ // onMount(() => getInformation())
+ 
+
+  const saveRelation = (e) => {
+    foodRating.user = user;
+    foodRating.food = food;
+    foodRating.rating = e.detail;
+    axios.post("/food_ratings/" + foodRating.user.user_id + "/" + foodRating.food.food_id + "/" + foodRating.rating)
+          .then((response) => {
+            console.log(response.data);
+            nextFood();
+          })
+          .catch((error) => {
+              console.log(error);
+          })
+  };
+
+
+  const nextFood = () =>{
+    index = index + 1;
+
+    if (index < maxIndex + 1){
+      
+      food_nr = foodListe[index];
+      
+    } else{
+      endOfList = true;
+    }
+
+  } 
 
 </script>
 
-<h1>Ratings </h1>
-
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-        <th scope="col">Category</th>
-        <th scope="col">Rating</th>
-      </tr>
-    </thead>
-    <tbody>
-      {#each newList as foodRating}
-        <tr>
-            <th scope="row">{foodRating.id}</th>
-            <td>{foodRating.food.food_name}</td> 
-            <td>{foodRating.food.category}</td> 
-            <td>{foodRating.rating}</td> 
-        </tr>
-     {/each}
-    </tbody>
-  </table>
-
+<h1>Questionnaire</h1>
+{#await getInformation}
+	<p>...waiting</p>
+{:then}
+	{#if !endOfList}
+    <FoodComponent food_nr={food_nr} on:save-vote={saveRelation} onChange={newFood => food = newFood} />
+  {:else}
+    <EndComponent ></EndComponent>
+  {/if}
+{/await}
