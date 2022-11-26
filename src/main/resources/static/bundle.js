@@ -3149,7 +3149,7 @@ var app = (function () {
 
 	const file$d = "src\\App.svelte";
 
-	// (26:2) {#if adminRigths}
+	// (29:2) {#if adminRigths}
 	function create_if_block$2(ctx) {
 		var current;
 
@@ -3200,7 +3200,7 @@ var app = (function () {
 				t = space();
 				router.$$.fragment.c();
 				div.className = "app-shell svelte-h5712t";
-				add_location(div, file$d, 24, 0, 389);
+				add_location(div, file$d, 27, 0, 392);
 			},
 
 			l: function claim(nodes) {
