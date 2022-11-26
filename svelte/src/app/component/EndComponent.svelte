@@ -16,7 +16,7 @@
       </h5>
       <p class="card-text">
 
-            Sie haben alle {count} Fragen ausgefüllt.
+            Sie haben alle {count} Fragen beantwortet.
 
       </p>
       <a href="#/evaluation" class="btn btn-primary">Zur Evaluation</a>

@@ -668,52 +668,52 @@ var app = (function () {
 		return {
 			c: function create() {
 				h2 = element("h2");
-				h2.textContent = "Registration Formular";
+				h2.textContent = "Registrieren";
 				t1 = space();
 				form = element("form");
 				div0 = element("div");
 				label0 = element("label");
-				label0.textContent = "Username";
+				label0.textContent = "Benutzername";
 				t3 = space();
 				input0 = element("input");
 				t4 = space();
 				div1 = element("div");
 				label1 = element("label");
-				label1.textContent = "Email address";
+				label1.textContent = "E-Mail-Adresse";
 				t6 = space();
 				input1 = element("input");
 				t7 = space();
 				div3 = element("div");
 				label2 = element("label");
-				label2.textContent = "Password";
+				label2.textContent = "Passwort";
 				t9 = space();
 				div2 = element("div");
 				input2 = element("input");
 				t10 = space();
 				div4 = element("div");
 				button = element("button");
-				t11 = text("Confirm identity");
+				t11 = text("Registrieren");
 				add_location(h2, file$1, 91, 0, 1740);
 				label0.htmlFor = "usernameInput";
 				label0.className = "form-label";
-				add_location(label0, file$1, 95, 4, 1822);
+				add_location(label0, file$1, 95, 4, 1813);
 				attr(input0, "type", "String");
 				input0.className = "form-control";
 				input0.id = "usernameInput";
-				input0.placeholder = "your username";
-				add_location(input0, file$1, 96, 4, 1890);
+				input0.placeholder = "Dein Benutzername";
+				add_location(input0, file$1, 96, 4, 1885);
 				div0.className = "mb-3";
-				add_location(div0, file$1, 94, 0, 1798);
+				add_location(div0, file$1, 94, 0, 1789);
 				label1.htmlFor = "exampleFormControlInput1";
 				label1.className = "form-label";
-				add_location(label1, file$1, 99, 4, 2067);
+				add_location(label1, file$1, 99, 4, 2066);
 				attr(input1, "type", "email");
 				input1.className = "form-control";
 				input1.id = "exampleFormControlInput1";
 				input1.placeholder = "name@example.com";
 				add_location(input1, file$1, 100, 4, 2151);
 				div1.className = "mb-3";
-				add_location(div1, file$1, 98, 0, 2043);
+				add_location(div1, file$1, 98, 0, 2042);
 				label2.htmlFor = "inputPassword";
 				label2.className = "col-sm-2 col-form-label";
 				add_location(label2, file$1, 103, 4, 2349);
@@ -732,7 +732,7 @@ var app = (function () {
 				div4.className = "col-auto";
 				add_location(div4, file$1, 108, 2, 2608);
 				form.className = "row g-3";
-				add_location(form, file$1, 93, 0, 1774);
+				add_location(form, file$1, 93, 0, 1765);
 
 				dispose = [
 					listen(input0, "input", ctx.input0_input_handler),
@@ -944,20 +944,20 @@ var app = (function () {
 				form = element("form");
 				div0 = element("div");
 				label0 = element("label");
-				label0.textContent = "Username";
+				label0.textContent = "Benutzername";
 				t3 = space();
 				input0 = element("input");
 				t4 = space();
 				div2 = element("div");
 				label1 = element("label");
-				label1.textContent = "Password";
+				label1.textContent = "Passwort";
 				t6 = space();
 				div1 = element("div");
 				input1 = element("input");
 				t7 = space();
 				div3 = element("div");
 				button = element("button");
-				t8 = text("Confirm");
+				t8 = text("Anmelden");
 				add_location(h2, file$2, 87, 4, 2062);
 				label0.htmlFor = "usernameInput";
 				label0.className = "form-label";
@@ -966,26 +966,26 @@ var app = (function () {
 				input0.className = "form-control";
 				input0.id = "usernameInput";
 				input0.placeholder = "your username";
-				add_location(input0, file$2, 92, 8, 2225);
+				add_location(input0, file$2, 92, 8, 2229);
 				div0.className = "mb-3";
 				add_location(div0, file$2, 90, 4, 2125);
 				label1.htmlFor = "inputPassword";
 				label1.className = "col-sm-2 col-form-label";
-				add_location(label1, file$2, 95, 8, 2418);
+				add_location(label1, file$2, 95, 8, 2422);
 				attr(input1, "type", "password");
 				input1.className = "form-control";
 				input1.id = "inputPassword";
-				add_location(input1, file$2, 97, 10, 2538);
+				add_location(input1, file$2, 97, 10, 2542);
 				div1.className = "col-sm-10";
-				add_location(div1, file$2, 96, 8, 2503);
+				add_location(div1, file$2, 96, 8, 2507);
 				div2.className = "mb-3 row";
-				add_location(div2, file$2, 94, 4, 2386);
+				add_location(div2, file$2, 94, 4, 2390);
 				button.disabled = ctx.disabled;
 				button.type = "button";
 				button.className = "btn btn-primary mb-3";
-				add_location(button, file$2, 101, 8, 2729);
+				add_location(button, file$2, 101, 8, 2733);
 				div3.className = "col-auto";
-				add_location(div3, file$2, 100, 6, 2697);
+				add_location(div3, file$2, 100, 6, 2701);
 				form.className = "row g-3";
 				add_location(form, file$2, 89, 4, 2097);
 
@@ -1179,8 +1179,8 @@ var app = (function () {
 				if (default_slot) default_slot.c();
 
 				a.href = a_href_value = "#/" + ctx.url;
-				a.className = "svelte-1b10eml";
-				add_location(a, file$3, 10, 0, 102);
+				a.className = "svelte-hh9rz7";
+				add_location(a, file$3, 10, 0, 112);
 			},
 
 			l: function claim(nodes) {
@@ -1296,7 +1296,7 @@ var app = (function () {
 	const file$4 = "src\\app\\component\\StartComponent.svelte";
 
 	function create_fragment$4(ctx) {
-		var div2, div0, t1, div1, h5, t3, p, t4, t5, t6, t7, a;
+		var div2, div0, t1, div1, h5, t3, p, t4, t5, t6, br0, br1, t7, b0, t9, br2, t10, b1, t12, br3, t13, b2, t15, u, t17, br4, br5, t18, t19, a;
 
 		return {
 			c: function create() {
@@ -1311,19 +1311,51 @@ var app = (function () {
 				p = element("p");
 				t4 = text("Dieser Fragbogen beinhaltet ");
 				t5 = text(ctx.count);
-				t6 = text(" Lebensmittel. \r\n        Geben Sie bitte an wie gerne Sie einzelne Lebensmittel haben.\r\n        Mit den Angaben wird eine erste Evaluation durchgeführt.");
+				t6 = text(" Lebensmittel. \r\n        Geben Sie bitte an, ob Sie die einzelne Lebensmittel mögen oder nicht. Unterscheiden können Sie dabei zwischen \"dislike\", \"like\" und \"superlike\".\r\n        ");
+				br0 = element("br");
+				br1 = element("br");
 				t7 = space();
+				b0 = element("b");
+				b0.textContent = "dislike";
+				t9 = text(" = dieses Lebensmittel mag ich nicht.");
+				br2 = element("br");
+				t10 = space();
+				b1 = element("b");
+				b1.textContent = "like";
+				t12 = text(" = dieses Lebensmittel mag ich.");
+				br3 = element("br");
+				t13 = space();
+				b2 = element("b");
+				b2.textContent = "superlike";
+				t15 = text(" = dieses Lebensmittel mag ich ");
+				u = element("u");
+				u.textContent = "sehr";
+				t17 = text(".\r\n        ");
+				br4 = element("br");
+				br5 = element("br");
+				t18 = text("\r\n        Mit diesen Angaben wird eine erste Evaluation durchgeführt.");
+				t19 = space();
 				a = element("a");
 				a.textContent = "Starten";
 				div0.className = "card-header";
 				add_location(div0, file$4, 8, 4, 140);
 				h5.className = "card-title";
 				add_location(h5, file$4, 12, 6, 234);
+				add_location(br0, file$4, 17, 8, 532);
+				add_location(br1, file$4, 17, 12, 536);
+				add_location(b0, file$4, 18, 8, 550);
+				add_location(br2, file$4, 18, 59, 601);
+				add_location(b1, file$4, 19, 8, 615);
+				add_location(br3, file$4, 19, 50, 657);
+				add_location(b2, file$4, 20, 8, 671);
+				add_location(u, file$4, 20, 55, 718);
+				add_location(br4, file$4, 21, 8, 740);
+				add_location(br5, file$4, 21, 12, 744);
 				p.className = "card-text";
 				add_location(p, file$4, 13, 6, 276);
 				a.href = "#/questions";
 				a.className = "btn btn-primary";
-				add_location(a, file$4, 20, 6, 534);
+				add_location(a, file$4, 25, 6, 847);
 				div1.className = "card-body";
 				add_location(div1, file$4, 11, 4, 203);
 				div2.className = "card";
@@ -1345,7 +1377,25 @@ var app = (function () {
 				append(p, t4);
 				append(p, t5);
 				append(p, t6);
-				append(div1, t7);
+				append(p, br0);
+				append(p, br1);
+				append(p, t7);
+				append(p, b0);
+				append(p, t9);
+				append(p, br2);
+				append(p, t10);
+				append(p, b1);
+				append(p, t12);
+				append(p, br3);
+				append(p, t13);
+				append(p, b2);
+				append(p, t15);
+				append(p, u);
+				append(p, t17);
+				append(p, br4);
+				append(p, br5);
+				append(p, t18);
+				append(div1, t19);
 				append(div1, a);
 			},
 
@@ -1392,7 +1442,7 @@ var app = (function () {
 				startcomponent.$$.fragment.c();
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$5, 82, 2, 1634);
+				add_location(button, file$5, 82, 2, 1716);
 				dispose = listen(button, "click", ctx.ausloggen);
 			},
 
@@ -1457,7 +1507,7 @@ var app = (function () {
 				t1 = text(ctx.text);
 				button.type = "button";
 				button.className = "btn btn-secondary mb-3";
-				add_location(button, file$5, 79, 2, 1531);
+				add_location(button, file$5, 79, 2, 1610);
 				dispose = listen(button, "click", ctx.btnHandler);
 			},
 
@@ -1620,7 +1670,7 @@ var app = (function () {
 				t_1 = space();
 				if_block.c();
 				if_block_anchor = empty();
-				add_location(h1, file$5, 67, 0, 1371);
+				add_location(h1, file$5, 67, 0, 1438);
 			},
 
 			l: function claim(nodes) {
@@ -1760,13 +1810,17 @@ var app = (function () {
 	const file$6 = "src\\app\\pages\\Notfound.svelte";
 
 	function create_fragment$6(ctx) {
-		var h1;
+		var h1, t_1, h2;
 
 		return {
 			c: function create() {
 				h1 = element("h1");
-				h1.textContent = "Wrong way, go back.";
+				h1.textContent = "Falsche Richtung, geh zurück.";
+				t_1 = space();
+				h2 = element("h2");
+				h2.textContent = "Seite nicht gefunden.";
 				add_location(h1, file$6, 4, 0, 25);
+				add_location(h2, file$6, 5, 0, 65);
 			},
 
 			l: function claim(nodes) {
@@ -1775,6 +1829,8 @@ var app = (function () {
 
 			m: function mount(target, anchor) {
 				insert(target, h1, anchor);
+				insert(target, t_1, anchor);
+				insert(target, h2, anchor);
 			},
 
 			p: noop,
@@ -1784,6 +1840,8 @@ var app = (function () {
 			d: function destroy(detaching) {
 				if (detaching) {
 					detach(h1);
+					detach(t_1);
+					detach(h2);
 				}
 			}
 		};
@@ -1816,7 +1874,7 @@ var app = (function () {
 				p = element("p");
 				t4 = text("Sie haben alle ");
 				t5 = text(ctx.count);
-				t6 = text(" Fragen ausgefüllt.");
+				t6 = text(" Fragen beantwortet.");
 				t7 = space();
 				a = element("a");
 				a.textContent = "Zur Evaluation";
@@ -1828,7 +1886,7 @@ var app = (function () {
 				add_location(p, file$7, 16, 6, 336);
 				a.href = "#/evaluation";
 				a.className = "btn btn-primary";
-				add_location(a, file$7, 21, 6, 436);
+				add_location(a, file$7, 21, 6, 437);
 				div0.className = "card-body";
 				add_location(div0, file$7, 10, 4, 199);
 				div1.className = "card";
@@ -2852,8 +2910,8 @@ var app = (function () {
 			c: function create() {
 				main = element("main");
 				if (switch_instance) switch_instance.$$.fragment.c();
-				main.className = "svelte-1arjn8m";
-				add_location(main, file$b, 35, 0, 768);
+				main.className = "svelte-a4hu4n";
+				add_location(main, file$b, 35, 0, 776);
 			},
 
 			l: function claim(nodes) {
@@ -2978,7 +3036,7 @@ var app = (function () {
 
 		return {
 			c: function create() {
-				t = text("Survey");
+				t = text("Umfrage");
 			},
 
 			m: function mount(target, anchor) {
@@ -3048,7 +3106,7 @@ var app = (function () {
 			c: function create() {
 				nav = element("nav");
 				h1 = element("h1");
-				h1.textContent = "Sidenav";
+				h1.textContent = "Navigation";
 				t1 = space();
 				ul = element("ul");
 				li0 = element("li");
@@ -3059,17 +3117,17 @@ var app = (function () {
 				t3 = space();
 				li2 = element("li");
 				routerlink2.$$.fragment.c();
-				add_location(h1, file$c, 22, 2, 305);
-				li0.className = "svelte-z3uaim";
-				add_location(li0, file$c, 25, 4, 334);
-				li1.className = "svelte-z3uaim";
-				add_location(li1, file$c, 29, 4, 401);
-				li2.className = "svelte-z3uaim";
-				add_location(li2, file$c, 33, 4, 475);
-				ul.className = "svelte-z3uaim";
-				add_location(ul, file$c, 23, 2, 324);
-				nav.className = "svelte-z3uaim";
-				add_location(nav, file$c, 21, 0, 297);
+				add_location(h1, file$c, 22, 2, 300);
+				li0.className = "svelte-1qeq5wx";
+				add_location(li0, file$c, 25, 4, 335);
+				li1.className = "svelte-1qeq5wx";
+				add_location(li1, file$c, 29, 4, 406);
+				li2.className = "svelte-1qeq5wx";
+				add_location(li2, file$c, 33, 4, 485);
+				ul.className = "svelte-1qeq5wx";
+				add_location(ul, file$c, 23, 2, 323);
+				nav.className = "svelte-1qeq5wx";
+				add_location(nav, file$c, 21, 0, 291);
 			},
 
 			l: function claim(nodes) {
@@ -3199,8 +3257,8 @@ var app = (function () {
 				if (if_block) if_block.c();
 				t = space();
 				router.$$.fragment.c();
-				div.className = "app-shell svelte-h5712t";
-				add_location(div, file$d, 27, 0, 392);
+				div.className = "app-shell svelte-17simda";
+				add_location(div, file$d, 27, 0, 419);
 			},
 
 			l: function claim(nodes) {

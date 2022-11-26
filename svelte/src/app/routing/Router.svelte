@@ -27,8 +27,8 @@
 <style>
   main {
     flex-grow: 1;
-    background-color: var(--primary-color-2);
-    color: var(--second-color);
+    background-color: #212529;
+    color: #00DD95;
     padding: 1rem;
   }
 </style>

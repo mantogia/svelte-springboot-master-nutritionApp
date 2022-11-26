@@ -5,8 +5,8 @@
 <style>
   nav {
     flex-basis: 10rem;
-    background-color: var(--primary-color);
-    color: var(--second-color-4);
+    background-color: #00DD95;
+    color: #212529;
     padding: 1rem; 
   }
 
@@ -20,7 +20,7 @@
 </style>
 
 <nav>
-  <h1>Sidenav</h1>
+  <h1>Navigation</h1>
   <ul>
 
     <li>
@@ -28,7 +28,7 @@
     </li>
 
     <li>
-      <RouterLink url='questions'>Survey</RouterLink>
+      <RouterLink url='questions'>Umfrage</RouterLink>
     </li>
 
     <li>

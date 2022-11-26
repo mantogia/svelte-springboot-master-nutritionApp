@@ -89,16 +89,16 @@
     
     <form class="row g-3">
     <div class="mb-3">
-        <label for="usernameInput" class="form-label">Username</label>
+        <label for="usernameInput" class="form-label">Benutzername</label>
         <input on:change={checkUsername} bind:value={user.user_name} type="String" class="form-control" id="usernameInput" placeholder="your username">
     </div>
     <div class="mb-3 row">
-        <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+        <label for="inputPassword" class="col-sm-2 col-form-label">Passwort</label>
         <div class="col-sm-10">
           <input on:change={checkPassword} bind:value={user.user_password} type="password" class="form-control" id="inputPassword">
         </div>
       </div>
       <div class="col-auto">
-        <button disabled={disabled} type="button" on:click={checkAccount} class="btn btn-primary mb-3" >Confirm</button>
+        <button disabled={disabled} type="button" on:click={checkAccount} class="btn btn-primary mb-3" >Anmelden</button>
       </div>
     </form>

@@ -89,24 +89,24 @@ function check(){
 
 </script>
 
-<h2>Registration Formular</h2>
+<h2>Registrieren</h2>
 
 <form class="row g-3">
 <div class="mb-3">
-    <label for="usernameInput" class="form-label">Username</label>
-    <input on:change={checkUsername} bind:value={user.user_name} type="String" class="form-control" id="usernameInput" placeholder="your username">
+    <label for="usernameInput" class="form-label">Benutzername</label>
+    <input on:change={checkUsername} bind:value={user.user_name} type="String" class="form-control" id="usernameInput" placeholder="Dein Benutzername">
 </div>
 <div class="mb-3">
-    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+    <label for="exampleFormControlInput1" class="form-label">E-Mail-Adresse</label>
     <input on:change={checkEmailAdress} bind:value={user.user_email} type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
 </div>
 <div class="mb-3 row">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+    <label for="inputPassword" class="col-sm-2 col-form-label">Passwort</label>
     <div class="col-sm-10">
       <input on:change={checkPassword} bind:value={user.user_password} type="password" class="form-control" id="inputPassword">
     </div>
   </div>
   <div class="col-auto">
-    <button disabled={disabled} type="button" on:click={saveUser} class="btn btn-primary mb-3" >Confirm identity</button>
+    <button disabled={disabled} type="button" on:click={saveUser} class="btn btn-primary mb-3" >Registrieren</button>
   </div>
 </form>
