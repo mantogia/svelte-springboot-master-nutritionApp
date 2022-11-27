@@ -2,8 +2,7 @@
 
     import {onMount} from "svelte";
     import { createEventDispatcher} from "svelte";
-    import { fly } from 'svelte/transition';
-
+  
     const dispatch = createEventDispatcher();
 
     export let food_nr;
@@ -27,27 +26,68 @@
     }
 
     const handleVote = (vote) => {
+        
         console.log(vote)
 
         dispatch('save-vote', vote);
 
+        if (vote == 0) {
+            console.log("dislike!!!")
+            cardleft();
+        } else if (vote == 1) {
+            console.log("like!!!")
+        } else {
+            console.log("superlike!!!")
+        }
+    }
+
+    function cardleft() {
+        css: () => 'animation: fade-in 1000ms forwards;'
     }
 
 </script>
 
 
-<div class="card mx-auto mt-5" style="width: 18rem; text-align: center;">
+
+<div class="card mx-auto mt-5" id="card-element" style="width: 18rem; text-align: center;">
     <img src="./images/{food_nr}.jpg" class="card-img-top" alt="Hier kommt das Bild hin">
     <div class="card-body">
-
-      <button class="btn btn-primary" on:click={() => handleVote(0)} transition:fly="{{ x: 200, duration: 2000 }}">dislike</button>
-      <button class="btn btn-primary" on:click={() => handleVote(1)}>like</button>
-      <button class="btn btn-primary" on:click={() => handleVote(2)}>superlike</button>
+        
+      <button class="btn btn-primary" id="dislike" on:click={() => handleVote(0)}>dislike</button>
+      <button class="btn btn-primary" id="like" on:click={() => handleVote(1)}>like</button>
+      <button class="btn btn-primary" id="superlike" on:click={() => handleVote(2)}>superlike</button>
     </div>
 </div>
+
 
 <style>
     .card{
         color: black;
+    }
+
+    #card-element{
+        animation: fade-in 1000ms forwards;
+    }
+
+    .classname {
+        animation: fade-in 1000ms forwards;
+    }
+
+    @keyframes slide-up {
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(0%);
+        }
+    }
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
     }
 </style>
