@@ -77,3 +77,9 @@ button:active {
 button:focus {
 	border-color: #666;
 }
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #00DD95 !important;
+	color: #ffffff;
+	border: 1px solid #212529;
+}

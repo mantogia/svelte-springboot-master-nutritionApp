@@ -85,18 +85,18 @@
     
     </script>
     
-    <h2>Login Formular</h2>
+    <h2>Anmelden</h2>
     
     <form class="row g-3">
     <div class="mb-3">
         <label for="usernameInput" class="form-label">Benutzername</label>
-        <input on:change={checkUsername} bind:value={user.user_name} type="String" class="form-control" id="usernameInput" placeholder="your username">
+        <input on:change={checkUsername} bind:value={user.user_name} type="String" class="form-control" id="usernameInput" placeholder="Dein Benutzername">
     </div>
-    <div class="mb-3 row">
+    <div class="mb-3">
         <label for="inputPassword" class="col-sm-2 col-form-label">Passwort</label>
-        <div class="col-sm-10">
+        <!-- Bruchts das Div? <div class="col-sm-10"> -->
           <input on:change={checkPassword} bind:value={user.user_password} type="password" class="form-control" id="inputPassword">
-        </div>
+        <!-- </div>-->
       </div>
       <div class="col-auto">
         <button disabled={disabled} type="button" on:click={checkAccount} class="btn btn-primary mb-3" >Anmelden</button>

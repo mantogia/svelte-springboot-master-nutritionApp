@@ -2,6 +2,7 @@
 
     import {onMount} from "svelte";
     import { createEventDispatcher} from "svelte";
+    import { fly } from 'svelte/transition';
 
     const dispatch = createEventDispatcher();
 
@@ -35,11 +36,11 @@
 </script>
 
 
-<div class="card" style="width: 18rem;">
+<div class="card mx-auto mt-5" style="width: 18rem; text-align: center;">
     <img src="./images/{food_nr}.jpg" class="card-img-top" alt="Hier kommt das Bild hin">
     <div class="card-body">
 
-      <button class="btn btn-primary" on:click={() => handleVote(0)}>dislike</button>
+      <button class="btn btn-primary" on:click={() => handleVote(0)} transition:fly="{{ x: 200, duration: 2000 }}">dislike</button>
       <button class="btn btn-primary" on:click={() => handleVote(1)}>like</button>
       <button class="btn btn-primary" on:click={() => handleVote(2)}>superlike</button>
     </div>

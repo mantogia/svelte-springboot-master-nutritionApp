@@ -10,16 +10,16 @@
   import {resetPage} from '../stores/stores.js';
 
   let neu = true;
-  let text = "Account exists"
+  let text = "Bereits ein Konto?"
  
 
   function btnHandler(){
   neu = !neu;
 
   if (neu){
-    text = "Login in existing Account"
+    text = "Bereits ein Konto?"
   }else{
-    text = "Create new Account"
+    text = "Noch kein Konto?"
   }
   }
 
@@ -65,7 +65,7 @@ function setAdmin() {
 
 </script>
 
-<h1>Home sweet Home</h1>
+<h1>FoodLike</h1>
 
 {#if !loggedIn}
   {#if neu}
@@ -80,7 +80,7 @@ function setAdmin() {
   <button type="button" on:click={btnHandler} class="btn btn-secondary mb-3" >{text}</button>
 
 {:else}
-  <button type="button" on:click={ausloggen} class="btn btn-secondary mb-3" >Ausloggen</button>
+  <button type="button" on:click={ausloggen} class="btn btn-secondary mb-3" >Abmelden</button>
 
   <StartComponent/>
 

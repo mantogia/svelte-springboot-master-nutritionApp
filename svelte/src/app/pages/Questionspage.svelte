@@ -81,7 +81,7 @@
 
 </script>
 
-<h1>Questionnaire</h1>
+<h1>Fragebogen</h1>
 {#await getInformation}
 	<p>...waiting</p>
 {:then}
@@ -91,3 +91,11 @@
     <EndComponent ></EndComponent>
   {/if}
 {/await}
+
+<style>
+  h1 {
+    display: flex; /* or grid */
+    justify-content: center;
+    align-items: center;
+  }
+</style>
